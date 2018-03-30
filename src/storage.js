@@ -18,7 +18,7 @@ class Storage implements StorageInterface {
     this.name = `__NAME__[v${this.version}]`
     const options = Object.assign({
       storage: 'local',
-      ttl: 60 * 60 * 1000
+      ttl: 60 * 60 * 24 * 1000 // 24 hours
     }, config)
     this.options = Object.freeze(options)
     switch (this.options.storage) {

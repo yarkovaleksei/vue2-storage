@@ -20,13 +20,13 @@ var Storage = function Storage (config) {
   this.name = "vue2-storage[v" + (this.version) + "]";
   var options = Object.assign({
     storage: 'local',
-    ttl: 60 * 60 * 1000
+    ttl: 60 * 60 * 24 * 1000 // 24 hours
   }, config);
   this.options = Object.freeze(options);
   switch (this.options.storage) {
     case 'local':
-      this.storage = window.localStorage;
-      break
+        this.storage = window.localStorage;
+        break
     case 'session':
       this.storage = window.sessionStorage;
       break
@@ -99,16 +99,12 @@ Storage.prototype.clear = function clear () {
 
 /*  */
 
-function plugin (Vue, options) {
+function Vue2Storage (Vue, options) {
   Vue.prototype.$storage = new Storage(options || {});
 }
 
-plugin.version = '1.0.0';
+window.Vue2Storage = Vue2Storage;
 
-if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(plugin);
-}
-
-return plugin;
+return Vue2Storage;
 
 })));

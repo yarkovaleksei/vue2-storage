@@ -1,3 +1,8 @@
+window.Vue.use(window.Vue2Storage, {
+  storage: 'local',
+  ttl: 60 * 60 * 24 * 1000
+})
+
 new window.Vue({
   data () {
     return {

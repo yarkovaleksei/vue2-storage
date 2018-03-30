@@ -3,6 +3,7 @@
 
 
 [![npm](https://img.shields.io/npm/v/vue2-storage.svg)](https://www.npmjs.com/package/vue2-storage)
+[![Travis](https://img.shields.io/travis/yarkovaleksei/vue2-storage.svg)](https://travis-ci.org/yarkovaleksei/vue2-storage)
 [![vue2](https://img.shields.io/badge/vue-2.x-brightgreen.svg)](https://vuejs.org/)
 
 Browser storage for Vue.js app

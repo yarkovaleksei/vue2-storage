@@ -13,8 +13,8 @@
   },
   "links": {
     "sharing": {
-      "facebook": false,
-      "twitter": false
+      "facebook": true,
+      "twitter": true
     }
   }
 }

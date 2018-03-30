@@ -1,6 +1,6 @@
-# Getting Started
+# Начало использования
 
-> We will be using [ES2015](https://github.com/lukehoban/es6features) in the code samples in the guide.
+> Мы будем использовать [ES2015](https://github.com/lukehoban/es6features) в примерах кода в руководстве.
 
 
 ### HTML
@@ -24,7 +24,7 @@
 ### JavaScript
 
 ```javascript
-// If using a module system (e.g. via vue-cli), import Vue and Vue2Storage and then call Vue.use(Vue2Storage).
+// Если вы используете модульную систему (например via vue-cli), то импортируйте Vue и Vue2Storage и подключите плагин через` Vue.use(Vue2Storage)`
 import Vue from 'vue'
 import Vue2Storage from 'vue2-storage'
 

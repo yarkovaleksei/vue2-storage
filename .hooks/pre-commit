@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# git hook to run a command before `git commit` and run lint and test scripts fron package.json
+
+npm run lint
+npm run flow
+npm run build
+npm run docs:install
+npm run docs:build
+npm run test
+npm run test:unit
+npm run test:e2e
+
+git add -A
