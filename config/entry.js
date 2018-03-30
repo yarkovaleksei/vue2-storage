@@ -1,6 +1,7 @@
 const replace = require('rollup-plugin-replace')
 const flow = require('rollup-plugin-flow-no-whitespace')
 const buble = require('rollup-plugin-buble')
+const json = require('rollup-plugin-json')
 const banner = require('./banner')
 const pack = require('../package.json')
 
@@ -54,11 +55,15 @@ function genConfig (opts) {
     moduleName,
     plugins: [
       flow(),
+      json(),
       buble()
     ]
   }
 
-  const replacePluginOptions = { '__VERSION__': pack.version }
+  const replacePluginOptions = {
+    '__VERSION__': pack.version,
+    '__NAME__': pack.name
+  }
   if (opts.env) {
     replacePluginOptions['process.env.NODE_ENV'] = JSON.stringify(opts.env)
   }

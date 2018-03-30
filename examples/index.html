@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <title>add example</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../dist/vue2-storage.js"></script>
+  </head>
+
+  <body>
+
+    <div id="app">
+      <header>vue2-storage example</header>
+      <div class="container">
+        <div class="row" v-for="(item, index) in data" :key="index">
+          <div class="col">
+            <div>
+              <b>{{ item.key }}:</b><hr>
+              <pre>{{ item.value }}</pre>
+            </div>
+          </div>
+          <div class="col">
+            <div class="panel">
+              <button class="get" @click.prevent="getFromStorage(item.key)">GET</button>
+              <button class="remove" @click.prevent="removeFromStorage(item.key)">REMOVE</button>
+            </div>
+          </div>
+        </div>
+        <div class="row add">
+          <div class="col">
+            <p>
+              <label for="value">
+                Storage value:<br>
+                <textarea id="value" cols="60" rows="13" v-model="form.value"></textarea>
+              </label>
+            </p>
+          </div>
+          <div class="col">
+            <p>
+                <label for="key">
+                  Storage key:<br>
+                  <input type="text" v-model="form.key">
+                </label>
+              </p>
+            <p>
+              <label for="ttl">
+                TTL in seconds:<br>
+                <input type="number" id="ttl" v-model="form.ttl">
+              </label>
+            </p>
+            <p>
+              <button class="set" @click.prevent="addItem">ADD</button>
+              <button class="clear" @click.prevent="clearStorage">CLEAR ALL</button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+
+  </body>
+</html>

@@ -1,8 +1,10 @@
 /* @flow */
-function plugin (Vue: any, options: Object = {}) {
-  Vue.prototype.$add = (a: number, b: number): number => {
-    return a + b
-  }
+
+import Storage from './storage'
+import type StorageOptions from './storage'
+
+function plugin (Vue: any, options: StorageOptions) {
+  Vue.prototype.$storage = new Storage(options || {})
 }
 
 plugin.version = '__VERSION__'
