@@ -1,5 +1,7 @@
+const prefix = 'app_'
 window.Vue.use(window.Vue2Storage, {
-  storage: 'local',
+  prefix,
+  driver: 'local',
   ttl: 60 * 60 * 24 * 1000
 })
 
@@ -11,7 +13,11 @@ new window.Vue({
         key: '',
         value: '',
         ttl: 60
-      }
+      },
+      has: false,
+      key: '',
+      keys: [],
+      total: 0
     }
   },
   methods: {
@@ -22,7 +28,8 @@ new window.Vue({
       } else {
         this.$set(this.data, index, {
           key: this.form.key,
-          value: this.form.value
+          value: this.form.value,
+          ttl: Number(this.form.ttl) * 1000
         })
       }
       this.$storage.set(
@@ -57,6 +64,15 @@ new window.Vue({
     clearStorage () {
       this.$storage.clear()
       this.data = []
+    },
+    hasKey () {
+      this.has = this.$storage.has(this.key)
+    },
+    getKeys () {
+      this.keys = this.$storage.keys()
+    },
+    getLength () {
+      this.total = this.$storage.length()
     }
   }
 }).$mount('#app')

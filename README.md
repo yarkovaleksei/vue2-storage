@@ -17,9 +17,6 @@ Browser storage for Vue.js app
 ## :book: Documentation
 See [here](http://yarkovaleksei.github.io/vue2-storage/)
 
-## :scroll: Changelog
-Details changes for each release are documented in the [CHANGELOG.md](https://github.com/yarkovaleksei/vue2-storage/blob/dev/CHANGELOG.md).
-
 
 ## :exclamation: Issues
 Please make sure to read the [Issue Reporting Checklist](https://github.com/yarkovaleksei/vue2-storage/blob/dev/CONTRIBUTING.md#issue-reporting-guidelines) before opening an issue. Issues not conforming to the guidelines may be closed immediately.
