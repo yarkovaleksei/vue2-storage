@@ -17,7 +17,7 @@
         <div class="row" v-for="(item, index) in data" :key="index">
           <div class="col">
             <div>
-              <b>{{ item.key }}:</b><hr>
+              <b>{{ item.key }}</b><hr>
               <pre>{{ item.value }}</pre>
             </div>
           </div>
@@ -31,19 +31,11 @@
         <div class="row add">
           <div class="col">
             <p>
-              <label for="value">
-                Storage value:<br>
-                <textarea id="value" cols="60" rows="13" v-model="form.value"></textarea>
+              <label for="key">
+                Storage key:<br>
+                <input type="text" v-model="form.key">
               </label>
             </p>
-          </div>
-          <div class="col">
-            <p>
-                <label for="key">
-                  Storage key:<br>
-                  <input type="text" v-model="form.key">
-                </label>
-              </p>
             <p>
               <label for="ttl">
                 TTL in seconds:<br>
@@ -53,6 +45,50 @@
             <p>
               <button class="set" @click.prevent="addItem">ADD</button>
               <button class="clear" @click.prevent="clearStorage">CLEAR ALL</button>
+            </p>
+          </div>
+          <div class="col">
+            <p>
+              <label for="value">
+                Storage value:<br>
+                <textarea id="value" cols="60" rows="13" v-model="form.value"></textarea>
+              </label>
+            </p>
+          </div>
+        </div>
+        <div class="row info">
+          <div class="col">
+            <p>
+              <label>
+                Has key:<br>
+                <input type="text" v-model="key">
+                <pre>{{ has }}</pre>
+              </label>
+            </p>
+            <p>
+              <button class="info" @click.prevent="hasKey">HAS KEY</button>
+            </p>
+          </div>
+          <div class="col">
+            <p>
+              <label>
+                Keys:<br>
+                <pre>{{ keys }}</pre>
+              </label>
+            </p>
+            <p>
+              <button class="info" @click.prevent="getKeys">KEYS</button>
+            </p>
+          </div>
+          <div class="col">
+            <p>
+              <label>
+                Keys length:<br>
+                <pre>{{ total }}</pre>
+              </label>
+            </p>
+            <p>
+              <button class="info" @click.prevent="getLength">LENGTH</button>
             </p>
           </div>
         </div>

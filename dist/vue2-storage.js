@@ -1,5 +1,5 @@
 /*!
- * vue2-storage v1.0.0 
+ * vue2-storage v2.0.0 
  * (c) 2018 Yarkov Aleksey
  * Released under the MIT License.
  */
@@ -11,29 +11,40 @@
 
 /*  */
 
-/*  */
+
 
 var Storage = function Storage (config) {
   if ( config === void 0 ) config = {};
 
-  this.version = '1.0.0';
-  this.name = "vue2-storage[v" + (this.version) + "]";
+  this.version = '2.0.0';
+  this.name = 'vue2-storage[v2.0.0]';
+  this.setOptions(config);
+  switch (this.options.driver) {
+    case 'local':
+      this.driver = window.localStorage;
+      break
+    case 'session':
+      this.driver = window.sessionStorage;
+      break
+    default:
+      this.driver = window.localStorage;
+      break
+  }
+};
+
+Storage.prototype.setOptions = function setOptions (config) {
+    if ( config === void 0 ) config = {};
+
   var options = Object.assign({
-    storage: 'local',
+    prefix: '',
+    driver: 'local',
     ttl: 60 * 60 * 24 * 1000 // 24 hours
   }, config);
   this.options = Object.freeze(options);
-  switch (this.options.storage) {
-    case 'local':
-        this.storage = window.localStorage;
-        break
-    case 'session':
-      this.storage = window.sessionStorage;
-      break
-    default:
-      this.storage = window.localStorage;
-      break
-  }
+};
+
+Storage.prototype.keyPrefix = function keyPrefix (key) {
+  return ("" + (this.options.prefix || '') + key)
 };
 
 Storage.prototype.toJSON = function toJSON (data, options) {
@@ -47,15 +58,21 @@ Storage.prototype.toJSON = function toJSON (data, options) {
 };
 
 Storage.prototype.fromJSON = function fromJSON (key) {
-  try {
-    var data = JSON.parse(this.storage.getItem(key));
-    if (data && data.ttl >= Date.now()) {
-      return data.value
-    }
-    this.remove(key);
-    return null
-  } catch (e) {
-    return null
+  switch (this.options.driver) {
+    case 'local':
+    case 'session':
+      try {
+        var data = JSON.parse(this.driver.getItem(key));
+        if (data && data.ttl >= Date.now()) {
+          return data.value
+        }
+        this.remove(key);
+        return null
+      } catch (e) {
+        return null
+      }
+    default:
+      return null
   }
 };
 
@@ -65,7 +82,7 @@ Storage.prototype.printError = function printError (e) {
 
 Storage.prototype.get = function get (key) {
   try {
-    return this.fromJSON(key)
+    return this.fromJSON(this.keyPrefix(key))
   } catch (e) {
     this.printError(e);
   }
@@ -75,26 +92,62 @@ Storage.prototype.set = function set (key, val, options) {
     if ( options === void 0 ) options = {};
 
   try {
-    this.storage.setItem(key, this.toJSON(val, options));
+    this.driver.setItem(this.keyPrefix(key), this.toJSON(val, options));
   } catch (e) {
     this.printError(e);
   }
 };
 
 Storage.prototype.remove = function remove (key) {
-  try {
-    this.storage.removeItem(key);
-  } catch (e) {
-    this.printError(e);
+  switch (this.options.driver) {
+    case 'local':
+    case 'session':
+    default:
+      try {
+        this.driver.removeItem(this.keyPrefix(key));
+      } catch (e) {
+        this.printError(e);
+      }
+      break
   }
 };
 
 Storage.prototype.clear = function clear () {
-  try {
-    this.storage.clear();
-  } catch (e) {
-    this.printError(e);
+  switch (this.options.driver) {
+    case 'local':
+    case 'session':
+    default:
+      try {
+        this.driver.clear();
+      } catch (e) {
+        this.printError(e);
+      }
+      break
   }
+};
+
+Storage.prototype.has = function has (key) {
+  switch (this.options.driver) {
+    case 'local':
+    case 'session':
+      return (this.keyPrefix(key) in this.driver)
+    default:
+      return false
+  }
+};
+
+Storage.prototype.keys = function keys () {
+  switch (this.options.driver) {
+    case 'local':
+    case 'session':
+      return Object.keys(this.driver)
+    default:
+      return []
+  }
+};
+
+Storage.prototype.length = function length () {
+  return this.keys().length
 };
 
 /*  */

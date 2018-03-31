@@ -1,6 +1,11 @@
 {
-  "presets": ["es2015", "flow-vue"],
-  "plugins": ["babel-plugin-espower"],
+  "presets": [
+    "es2015",
+    "flow-vue"
+  ],
+  "plugins": [
+    "babel-plugin-espower"
+  ],
   "env": {
     "test": {
       "plugins": ["istanbul"],

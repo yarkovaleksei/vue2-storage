@@ -14,10 +14,25 @@
 </div>
 
 <script>
+  // You can specify the plug-in configuration when connecting, passing the second object to Vue.use
   window.Vue.use(window.Vue2Storage, {
-    storage: 'local',
-    ttl: 60 * 60 * 24 * 1000
+    prefix: 'app_',
+    driver: 'local',
+    ttl: 60 * 60 * 24 * 1000 // 24 hours
   })
+
+  new Vue({
+    el: '#app',
+    created () {
+      // The configuration of the plugin can be changed at any time.
+      // Just call the setOptions method and pass the object with the settings to it.
+      this.$storage.setOptions({
+        prefix: 'app_',
+        driver: 'local',
+        ttl: 60 * 60 * 24 * 1000 // 24 hours
+      })
+    }
+  }).$mount('#app')
 </script>
 ```
 
@@ -28,18 +43,29 @@
 import Vue from 'vue'
 import Vue2Storage from 'vue2-storage'
 
+// You can specify the plug-in configuration when connecting, passing the second object to Vue.use
 Vue.use(Vue2Storage, {
-  storage: 'local',
+  prefix: 'app_',
+  driver: 'local',
   ttl: 60 * 60 * 24 * 1000
 })
 
 // TODO: here the example
 
 // Now the app has started!
-new Vue({ }).$mount('#app')
+new Vue({
+  el: '#app',
+  created () {
+    // The configuration of the plugin can be changed at any time.
+    // Just call the setOptions method and pass the object with the settings to it.
+    this.$storage.setOptions({
+      prefix: 'app_',
+      driver: 'local',
+      ttl: 60 * 60 * 24 * 1000
+    })
+  }
+}).$mount('#app')
 ```
-
-Output the following:
 
 ```html
 <div id="#app">
