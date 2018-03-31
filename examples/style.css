@@ -24,6 +24,10 @@
 
 .row.add {
   justify-content: center;
+}
+
+.row.add,
+.row.info {
   border: none;
 }
 
@@ -51,6 +55,10 @@ button.get {
 button.remove,
 button.clear {
   background-color: #e4380d;
+}
+
+button.info {
+  background-color: #40bcc0;
 }
 
 input, textarea {

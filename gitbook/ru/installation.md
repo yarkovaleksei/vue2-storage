@@ -4,7 +4,7 @@
 
 https://unpkg.com/vue2-storage/dist/vue2-storage
 
-[unpkg.com](https://unpkg.com) предоставляет ссылки на CDN на основе NPM. Вышеуказанная ссылка всегда указывает на последнюю версию NPM пакета. Вы также можете использовать конкретную версию/тег через URL-адрес, например https://unpkg.com/vue2-storage@1.0.0/dist/vue2-storage.js...
+[unpkg.com](https://unpkg.com) предоставляет ссылки на CDN на основе NPM. Вышеуказанная ссылка всегда указывает на последнюю версию NPM пакета. Вы также можете использовать конкретную версию/тег через URL-адрес, например https://unpkg.com/vue2-storage@2.0.0/dist/vue2-storage.js......
 
 Подключите vue2-storage после Vue и используйте согласно документации:
 
@@ -12,10 +12,7 @@ https://unpkg.com/vue2-storage/dist/vue2-storage
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue2-storage/dist/vue2-storage.js"></script>
 <script>
-  window.Vue.use(window.Vue2Storage, {
-    storage: 'local',
-    ttl: 60 * 60 * 24 * 1000
-  })
+  window.Vue.use(window.Vue2Storage)
 </script>
 ```
 
@@ -33,10 +30,7 @@ https://unpkg.com/vue2-storage/dist/vue2-storage
 import Vue from 'vue'
 import Vue2Storage from 'vue2-storage'
 
-Vue.use(Vue2Storage, {
-  storage: 'local',
-  ttl: 60 * 60 * 24 * 1000
-})
+Vue.use(Vue2Storage)
 ```
 
 Вам не нужно делать это при подключении скриптов глобально.

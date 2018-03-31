@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Installation · GitBook</title>
+        <title>Options · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -61,10 +61,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="started.html" />
+    <link rel="next" href="api.html" />
     
     
-    <link rel="prev" href="./" />
+    <link rel="prev" href="started.html" />
     
 
     </head>
@@ -106,7 +106,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="installation.html">
+        <li class="chapter " data-level="1.2" data-path="installation.html">
             
                 <a href="installation.html">
             
@@ -132,7 +132,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="options.html">
+        <li class="chapter active" data-level="1.4" data-path="options.html">
             
                 <a href="options.html">
             
@@ -317,7 +317,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Installation</a>
+        <a href="." >Options</a>
     </h1>
 </div>
 
@@ -332,36 +332,12 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="installation">Installation</h1>
-<h3 id="direct-download--cdn">Direct Download / CDN</h3>
-<p><a href="https://unpkg.com/vue2-storage/dist/vue2-storage" target="_blank">https://unpkg.com/vue2-storage/dist/vue2-storage</a></p>
-<p><a href="https://unpkg.com" target="_blank">unpkg.com</a> provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like <a href="https://unpkg.com/vue2-storage@2.0.0/dist/vue2-storage.js" target="_blank">https://unpkg.com/vue2-storage@2.0.0/dist/vue2-storage.js</a>......</p>
-<p>Include vue2-storage after Vue and use according to the documentation:</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/vue/dist/vue.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/vue2-storage/dist/vue2-storage.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-  <span class="hljs-built_in">window</span>.Vue.use(<span class="hljs-built_in">window</span>.Vue2Storage)
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-</code></pre>
-<h3 id="npm">NPM</h3>
-<pre><code>$ npm install vue2-storage
-</code></pre><h3 id="yarn">Yarn</h3>
-<pre><code>$ yarn add vue2-storage
-</code></pre><p>When used with a module system, you must explicitly install the <code>vue2-storage</code> via <code>Vue.use()</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;vue&apos;</span>
-<span class="hljs-keyword">import</span> Vue2Storage <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;vue2-storage&apos;</span>
+                                <h1 id="options">Options</h1>
+<p>To install the configuration, the plug-in accepts an object of a certain format.</p>
+<p><code>prefix</code> - a string that will be added to the beginning of the key to avoid collisions. Default is an empty string.</p>
+<p><code>driver</code> - the identifier of the storage used. While values are supported <strong>local</strong> and <strong>session</strong> (<strong>localStorage</strong> and <strong>sessionStorage</strong> respectively). Default is an <code>local</code>.</p>
+<p><code>ttl</code> - record lifetime in seconds. Default is an <code>60 * 60 * 24 * 1000 // 24 &#x447;&#x430;&#x441;&#x430;</code>.</p>
 
-Vue.use(Vue2Storage)
-</code></pre>
-<p>You don&apos;t need to do this when using global script tags.</p>
-<h3 id="dev-build">Dev Build</h3>
-<p>You will have to clone directly from GitHub and build <code>vue2-storage</code> yourself if
-you want to use the latest dev build.</p>
-<pre><code>$ git clone https://github.com/yarkovaleksei/vue2-storage.git node_modules/vue2-storage
-$ cd node_modules/vue2-storage
-$ npm install
-$ npm run build
-</code></pre>
                                 
                                 </section>
                             
@@ -388,12 +364,12 @@ $ npm run build
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                <a href="started.html" class="navigation navigation-prev " aria-label="Previous page: Getting Started">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="started.html" class="navigation navigation-next " aria-label="Next page: Getting Started">
+                <a href="api.html" class="navigation navigation-next " aria-label="Next page: API">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -404,7 +380,7 @@ $ npm run build
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Installation","level":"1.2","depth":1,"next":{"title":"Getting Started","level":"1.3","depth":1,"path":"started.md","ref":"started.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git","-fontsettings","github","advanced-emoji@0.2.1"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/yarkovaleksei/vue2-storage/"},"search":{},"theme-vuejs":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"advanced-emoji":{"embedEmojis":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/yarkovaleksei/vue2-storage/tree/dev/gitbook"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"en","links":{"sharing":{"facebook":true,"twitter":true}},"gitbook":"*"},"file":{"path":"installation.md","mtime":"2018-03-31T14:16:53.165Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-31T14:16:53.915Z"},"basePath":".","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"Options","level":"1.4","depth":1,"next":{"title":"API","level":"1.5","depth":1,"path":"api.md","ref":"api.md","articles":[{"title":"Methods","level":"1.5.1","depth":2,"anchor":"#methods","path":"api.md","ref":"api.md#methods","articles":[{"title":"setOptions","level":"1.5.1.1","depth":3,"anchor":"#setoptions","path":"api.md","ref":"api.md#setoptions","articles":[]},{"title":"get","level":"1.5.1.2","depth":3,"anchor":"#get","path":"api.md","ref":"api.md#get","articles":[]},{"title":"set","level":"1.5.1.3","depth":3,"anchor":"#set","path":"api.md","ref":"api.md#set","articles":[]},{"title":"remove","level":"1.5.1.4","depth":3,"anchor":"#remove","path":"api.md","ref":"api.md#remove","articles":[]},{"title":"clear","level":"1.5.1.5","depth":3,"anchor":"#clear","path":"api.md","ref":"api.md#clear","articles":[]},{"title":"has","level":"1.5.1.6","depth":3,"anchor":"#has","path":"api.md","ref":"api.md#has","articles":[]},{"title":"keys","level":"1.5.1.7","depth":3,"anchor":"#keys","path":"api.md","ref":"api.md#keys","articles":[]},{"title":"length","level":"1.5.1.8","depth":3,"anchor":"#length","path":"api.md","ref":"api.md#length","articles":[]}]}]},"previous":{"title":"Getting Started","level":"1.3","depth":1,"path":"started.md","ref":"started.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git","-fontsettings","github","advanced-emoji@0.2.1"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/yarkovaleksei/vue2-storage/"},"search":{},"theme-vuejs":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"highlight":{},"advanced-emoji":{"embedEmojis":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/yarkovaleksei/vue2-storage/tree/dev/gitbook"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"language":"en","links":{"sharing":{"facebook":true,"twitter":true}},"gitbook":"*"},"file":{"path":"options.md","mtime":"2018-03-31T14:10:18.133Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-03-31T14:16:53.915Z"},"basePath":".","book":{"language":"en"}});
         });
     </script>
 </div>

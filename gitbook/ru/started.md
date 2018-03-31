@@ -14,10 +14,25 @@
 </div>
 
 <script>
+  // Вы можете указать конфигурацию плагина при подключении, передав в Vue.use вторым аргументом объект с настройками
   window.Vue.use(window.Vue2Storage, {
-    storage: 'local',
-    ttl: 60 * 60 * 24 * 1000
+    prefix: 'app_',
+    driver: 'local',
+    ttl: 60 * 60 * 24 * 1000 // 24 часа
   })
+
+  new Vue({
+    el: '#app',
+    created () {
+      // Конфигурация плагина может быть изменена в любой момент.
+      // Просто вызовите метод setOptions и передайте в него объект с настройками.
+      this.$storage.setOptions({
+        prefix: 'app_',
+        driver: 'local',
+        ttl: 60 * 60 * 24 * 1000 // 24 часа
+      })
+    }
+  }).$mount('#app')
 </script>
 ```
 
@@ -28,18 +43,29 @@
 import Vue from 'vue'
 import Vue2Storage from 'vue2-storage'
 
+// Вы можете указать конфигурацию плагина при подключении, передав в Vue.use вторым аргументом объект с настройками
 Vue.use(Vue2Storage, {
-  storage: 'local',
+  prefix: 'app_',
+  driver: 'local',
   ttl: 60 * 60 * 24 * 1000
 })
 
 // TODO: here the example
 
-// Now the app has started!
-new Vue({ }).$mount('#app')
+// Приложение запустилось!
+new Vue({
+  el: '#app',
+  created () {
+    // Конфигурация плагина может быть изменена в любой момент.
+    // Просто вызовите метод setOptions и передайте в него объект с настройками.
+    this.$storage.setOptions({
+      prefix: 'app_',
+      driver: 'local',
+      ttl: 60 * 60 * 24 * 1000
+    })
+  }
+}).$mount('#app')
 ```
-
-Output the following:
 
 ```html
 <div id="#app">

@@ -1,1 +1,3 @@
 config/*.js
+dist/*.js
+docs/*.js
