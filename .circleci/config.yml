@@ -1,0 +1,58 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    branches:
+      only:
+        - master
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:latest-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Install dependencies
+          command: |
+            npm install
+          when: on_fail
+
+      - save_cache:
+          key: dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+
+      - run:
+          name: Run eslint check
+          command: |
+            npm run lint
+
+      - run:
+          name: Run flow check
+          command: |
+            npm run flow
+
+      - run:
+          name: Build package
+          command: |
+            npm run build
+
+      - run:
+          name: Build docs
+          command: |
+            npm run docs:install
+            npm run docs:build
+
+      - run:
+          name: Run tests
+          command: |
+            npm run test
