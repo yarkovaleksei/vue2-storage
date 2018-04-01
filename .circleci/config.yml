@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            npm install -g flow
+            sudo npm install -g flow
             npm install
 
       - save_cache:
