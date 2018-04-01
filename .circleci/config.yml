@@ -10,7 +10,7 @@ jobs:
         - master
     docker:
       # specify the version you desire here
-      - image: circleci/node:latest-browsers
+      - image: circleci/node:9
 
     working_directory: ~/repo
 
@@ -23,7 +23,6 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo npm install -g flow
             npm install
 
       - save_cache:
