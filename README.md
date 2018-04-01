@@ -1,7 +1,7 @@
 # vue2-storage
 
 
-
+[![Circle CI Status](https://circleci.com/gh/yarkovaleksei/vue2-storage.svg?style=shield)](https://circleci.com/gh/yarkovaleksei/vue2-storage)
 [![npm](https://img.shields.io/npm/v/vue2-storage.svg)](https://www.npmjs.com/package/vue2-storage)
 ![GitHub release](https://img.shields.io/github/release/yarkovaleksei/vue2-storage.svg)
 [![npm](https://img.shields.io/npm/dw/vue2-storage.svg)](https://www.npmjs.com/package/vue2-storage)
