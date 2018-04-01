@@ -24,7 +24,6 @@ jobs:
           name: Install dependencies
           command: |
             npm install
-          when: on_fail
 
       - save_cache:
           key: dependencies-{{ checksum "package.json" }}
