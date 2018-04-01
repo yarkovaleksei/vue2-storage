@@ -11,6 +11,8 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:9
+    environment:
+      - TERM: xterm
 
     working_directory: ~/repo
 
@@ -44,7 +46,6 @@ jobs:
       - run:
           name: Run flow check
           command: |
-            export TERM=xterm
             npm run flow
 
       - run:
