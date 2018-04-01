@@ -17,6 +17,12 @@ jobs:
     steps:
       - checkout
 
+      - run:
+          name: Install apt dependencies
+          command: |
+            sudo apt-get update -qq
+            sudo apt-get install -qy libelf1
+
       - restore_cache:
           key: dependencies-{{ checksum "package.json" }}
 
