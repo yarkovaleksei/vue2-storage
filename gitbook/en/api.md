@@ -33,15 +33,18 @@ Arguments:
 |   name   |   type   | default  | required | allow values |
 |----------|----------|----------|----------|----------|
 | `key`    | `String` |          | +        |          |
+| `fallback`    | `*` |          | -        |          |
 
-Example:
+Пример:
 
 ```javascript
 expoft default {
   created () {
     this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
     const data = this.$storage.get('test')
+    const fallback = this.$storage.get('unknown', 'fallback') // Not in storage
     console.log(data) // { key: 'value' }
+    console.log(fallback) // "fallback"
   }
 }
 ```
@@ -98,6 +101,14 @@ expoft default {
 ### clear
 
 The method allows you to clear the repository.
+If the argument `force` is passed with a value of `true`, then the entire storage will be cleared.
+Otherwise, only the values whose key begins with the prefix specified in the settings will be deleted.
+
+Arguments:
+
+|   name   |   type   | default  | required | allow values |
+|----------|----------|----------|----------|----------|
+| `force`  | `Boolean`| `false`  | -        |          |
 
 Example:
 
@@ -138,6 +149,28 @@ expoft default {
 
 Return value: `Boolean`
 
+### key
+
+The method returns a value from the numeric key index.
+
+Arguments:
+
+|   name   |   type   | default  | required | allow values |
+|----------|----------|----------|----------|----------|
+| `index`  | `Number` |          | +        |          |
+
+Пример:
+
+```javascript
+expoft default {
+  created () {
+    this.$storage.set('test', 'value')
+    const key = this.$storage.key(0)
+    console.log(key) // 'value'
+  }
+}
+```
+
 ### keys
 
 The method returns an array of storage keys.
@@ -175,3 +208,10 @@ expoft default {
 ```
 
 Return value: `Number`
+
+- - -
+# Properties
+
+### length
+
+Returns the number of records in the storage.

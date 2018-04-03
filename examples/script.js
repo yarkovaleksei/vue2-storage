@@ -1,11 +1,13 @@
-const prefix = 'app_'
-window.Vue.use(window.Vue2Storage, {
-  prefix,
-  driver: 'local',
-  ttl: 60 * 60 * 24 * 1000
-})
+window.Vue.use(window.Vue2Storage)
 
 new window.Vue({
+  created () {
+    this.$storage.setOptions({
+      prefix: 'app_',
+      driver: 'local',
+      ttl: 60 * 60 * 24 * 1000
+    })
+  },
   data () {
     return {
       data: [],
@@ -62,7 +64,7 @@ new window.Vue({
       this.getFromStorage(key)
     },
     clearStorage () {
-      this.$storage.clear()
+      this.$storage.clear(true)
       this.data = []
     },
     hasKey () {
@@ -72,7 +74,7 @@ new window.Vue({
       this.keys = this.$storage.keys()
     },
     getLength () {
-      this.total = this.$storage.length()
+      this.total = this.$storage.length
     }
   }
 }).$mount('#app')
