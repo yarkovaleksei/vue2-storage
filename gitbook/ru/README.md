@@ -15,3 +15,5 @@
     - [has](api.md#has)
     - [keys](api.md#keys)
     - [length](api.md#length)
+  - [Свойства](api.md#свойства)
+    - [length](api.md#length)
