@@ -1,7 +1,4 @@
 import Vue from 'vue'
-import VueStorage from '../../../src'
-
-Vue.use(VueStorage)
 
 describe('Local Storage', () => {
   let vm
@@ -12,7 +9,7 @@ describe('Local Storage', () => {
       prefix: 'app_',
       driver: 'local'
     })
-    vm.$storage.clear()
+    vm.$storage.clear(true)
   })
 
   describe('Prefix', () => {
@@ -25,7 +22,7 @@ describe('Local Storage', () => {
 
   describe('Set item', () => {
     beforeEach(() => {
-      vm.$storage.clear()
+      vm.$storage.clear(true)
     })
 
     it('Set Object', (done) => {
@@ -92,6 +89,14 @@ describe('Local Storage', () => {
     }).timeout(10000)
   })
 
+  describe('Get item with default value', () => {
+    it('Get item', (done) => {
+      const value = vm.$storage.get('fallback', 'fallback')
+      assert(value === 'fallback', 'Default value not work')
+      done()
+    })
+  })
+
   describe('Remove item by key', () => {
     it('Remove item', (done) => {
       const data = 'test'
@@ -112,6 +117,16 @@ describe('Local Storage', () => {
     })
   })
 
+  describe('Get value by key index', () => {
+    it('Get key', (done) => {
+      vm.$storage.set('test', 'test')
+      const value = vm.$storage.key(0)
+      const test = vm.$storage.get('test')
+      assert(value === test, 'Get value by key index is not work')
+      done()
+    })
+  })
+
   describe('Get keys', () => {
     it('Get keys array', (done) => {
       vm.$storage.set('test1', 'test1')
@@ -126,7 +141,7 @@ describe('Local Storage', () => {
     it('Get keys length', (done) => {
       vm.$storage.set('test1', 'test1')
       vm.$storage.set('test2', 'test2')
-      const length = vm.$storage.length()
+      const length = vm.$storage.length
       assert(length === 2, 'Get length is not work')
       done()
     })

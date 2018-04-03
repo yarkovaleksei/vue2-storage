@@ -1,13 +1,13 @@
 import Vue from 'vue'
 
-describe('Session Storage', () => {
+describe('Memory Storage', () => {
   let vm
 
   beforeEach(() => {
     vm = new Vue()
     vm.$storage.setOptions({
       prefix: 'app_',
-      driver: 'session'
+      driver: 'memory'
     })
     vm.$storage.clear(true)
   })

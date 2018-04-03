@@ -33,6 +33,7 @@ expoft default {
 |   name   |   type   | default  | required | allow values |
 |----------|----------|----------|----------|----------|
 | `key`    | `String` |          | +        |          |
+| `fallback`    | `*` |          | -        |          |
 
 Пример:
 
@@ -41,7 +42,9 @@ expoft default {
   created () {
     this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
     const data = this.$storage.get('test')
+    const fallback = this.$storage.get('unknown', 'fallback') // Not in storage
     console.log(data) // { key: 'value' }
+    console.log(fallback) // "fallback"
   }
 }
 ```
@@ -98,6 +101,14 @@ expoft default {
 ### clear
 
 Метод позволяет очистить хранилище.
+Если передан аргумент `force` со значением `true`, то будет очищено все хранилище.
+В противном случае будут удалены только значения, ключ которых начинается с префикса, указанного в настройках.
+
+Аргументы:
+
+|   name   |   type   | default  | required | allow values |
+|----------|----------|----------|----------|----------|
+| `force`  | `Boolean`| `false`  | -        |          |
 
 Пример:
 
@@ -138,6 +149,28 @@ expoft default {
 
 Возвращаемое значение: `Boolean`
 
+### key
+
+Метод возвращает значение по числовому индексу ключа.
+
+Аргументы:
+
+|   name   |   type   | default  | required | allow values |
+|----------|----------|----------|----------|----------|
+| `index`  | `Number` |          | +        |          |
+
+Пример:
+
+```javascript
+expoft default {
+  created () {
+    this.$storage.set('test', 'value')
+    const key = this.$storage.key(0)
+    console.log(key) // 'value'
+  }
+}
+```
+
 ### keys
 
 Метод возвращает массив ключей хранилища.
@@ -175,3 +208,10 @@ expoft default {
 ```
 
 Возвращаемое значение: `Number`
+
+- - -
+# Свойства
+
+### length
+
+Возвращает количество записей в хранилище.
