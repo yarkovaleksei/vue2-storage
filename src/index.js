@@ -3,7 +3,9 @@
 import Storage from './storage'
 
 function Vue2Storage (Vue: any, options: StorageOptions) {
-  Vue.prototype.$storage = new Storage(options)
+  const storage = new Storage(options)
+  Vue['$storage'] = storage
+  Vue.prototype.$storage = storage
 }
 
 export default Vue2Storage
