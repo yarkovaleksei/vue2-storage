@@ -1,5 +1,5 @@
 /*!
- * vue2-storage v3.0.0 
+ * vue2-storage v3.3.0 
  * (c) 2018 Yarkov Aleksey
  * Released under the MIT License.
  */
@@ -59,11 +59,11 @@ var Storage = function Storage (config) {
 var prototypeAccessors = { name: {},version: {},length: {},driver: {} };
 
 prototypeAccessors.name.get = function () {
-  return 'vue2-storage[v3.0.0]'
+  return 'vue2-storage[v3.3.0]'
 };
 
 prototypeAccessors.version.get = function () {
-  return '3.0.0'
+  return '3.3.0'
 };
 
 prototypeAccessors.length.get = function () {
@@ -212,7 +212,9 @@ Object.defineProperties( Storage.prototype, prototypeAccessors );
 /*  */
 
 function Vue2Storage (Vue, options) {
-  Vue.prototype.$storage = new Storage(options);
+  var storage = new Storage(options);
+  Vue['$storage'] = storage;
+  Vue.prototype.$storage = storage;
 }
 
 window.Vue2Storage = Vue2Storage;

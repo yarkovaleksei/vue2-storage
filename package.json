@@ -1,7 +1,7 @@
 {
   "name": "vue2-storage",
   "description": "Browser storage for Vue.js app",
-  "version": "3.0.0",
+  "version": "3.3.0",
   "author": {
     "name": "Yarkov Aleksey",
     "email": "yarkovaleksei25@gmail.com"
@@ -37,14 +37,15 @@
   "main": "dist/vue2-storage.common.js",
   "module": "dist/vue2-storage.esm.js",
   "unpkg": "dist/vue2-storage.js",
+  "typings": "types/index.d.ts",
   "keywords": [
-    "plugin",
     "vue",
     "vuejs",
+    "plugin",
     "storage",
     "localStorage",
-    "sessionStorage",
-    "cookie"
+    "memoryStorage",
+    "sessionStorage"
   ],
   "license": "MIT",
   "devDependencies": {
