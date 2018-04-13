@@ -13,6 +13,7 @@
     - [remove](api.md#remove)
     - [clear](api.md#clear)
     - [has](api.md#has)
+    - [key](api.md#key)
     - [keys](api.md#keys)
     - [length](api.md#length)
   - [Properties](api.md#properties)
