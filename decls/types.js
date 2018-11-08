@@ -1,3 +1,6 @@
+/* eslint-disable */
+/* @flow */
+
 declare type StorageOptions = {
   prefix?: string,
   driver?: string,
@@ -36,4 +39,8 @@ declare interface MemoryStorageInterface {
   setItem(key: string, data: any): void;
   removeItem(key: string): void;
   clear(): void;
+}
+
+declare module 'object-assign' {
+  declare module.exports: any;
 }

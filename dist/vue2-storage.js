@@ -4,10 +4,12 @@
  * Released under the MIT License.
  */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global.Vue2Storage = factory());
-}(this, (function () { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('object-assign')) :
+  typeof define === 'function' && define.amd ? define(['object-assign'], factory) :
+  (global.Vue2Storage = factory(global.objectAssign));
+}(this, (function (objectAssign) { 'use strict';
+
+objectAssign = 'default' in objectAssign ? objectAssign['default'] : objectAssign;
 
 /*  */
 
@@ -89,7 +91,7 @@ prototypeAccessors.driver.get = function () {
 Storage.prototype.setOptions = function setOptions (config) {
     if ( config === void 0 ) config = {};
 
-  var options = Object.assign({
+  var options = objectAssign({
     prefix: 'app_',
     driver: 'local',
     ttl: 60 * 60 * 24 * 1000 // 24 hours

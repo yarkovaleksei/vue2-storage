@@ -5,6 +5,10 @@
  */
 'use strict';
 
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var objectAssign = _interopDefault(require('object-assign'));
+
 /*  */
 
 var storage = {};
@@ -85,7 +89,7 @@ prototypeAccessors.driver.get = function () {
 Storage.prototype.setOptions = function setOptions (config) {
     if ( config === void 0 ) config = {};
 
-  var options = Object.assign({
+  var options = objectAssign({
     prefix: 'app_',
     driver: 'local',
     ttl: 60 * 60 * 24 * 1000 // 24 hours
