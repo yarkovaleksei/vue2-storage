@@ -1,5 +1,6 @@
 /* @flow */
 
+import objectAssign from 'object-assign'
 import MemoryStorage from './MemoryStorage'
 
 class Storage implements StorageInterface {
@@ -34,7 +35,7 @@ class Storage implements StorageInterface {
   }
 
   setOptions (config: StorageOptions = {}): void {
-    const options = Object.assign({
+    const options = objectAssign({
       prefix: 'app_',
       driver: 'local',
       ttl: 60 * 60 * 24 * 1000 // 24 hours

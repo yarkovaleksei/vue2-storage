@@ -57,7 +57,11 @@ function genConfig (opts) {
       flow(),
       json(),
       buble()
-    ]
+    ],
+    external: ['object-assign'],
+    globals: {
+      'object-assign': 'objectAssign'
+    }
   }
 
   const replacePluginOptions = {
