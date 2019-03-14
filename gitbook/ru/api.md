@@ -13,7 +13,7 @@
 Пример:
 
 ```javascript
-expoft default {
+export default {
   created () {
     this.$storage.setOptions({
       prefix: 'app_',
@@ -38,7 +38,7 @@ expoft default {
 Пример:
 
 ```javascript
-expoft default {
+export default {
   created () {
     this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
     const data = this.$storage.get('test')
@@ -66,7 +66,7 @@ expoft default {
 Пример:
 
 ```javascript
-expoft default {
+export default {
   created () {
     this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
     const data = this.$storage.get('test')
@@ -88,7 +88,7 @@ expoft default {
 Пример:
 
 ```javascript
-expoft default {
+export default {
   created () {
     this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
     this.$storage.remove('test')
@@ -113,7 +113,7 @@ expoft default {
 Пример:
 
 ```javascript
-expoft default {
+export default {
   created () {
     this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
     this.$storage.clear()
@@ -136,7 +136,7 @@ expoft default {
 Пример:
 
 ```javascript
-expoft default {
+export default {
   created () {
     this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
     const hasTest = this.$storage.has('test')
@@ -162,7 +162,7 @@ expoft default {
 Пример:
 
 ```javascript
-expoft default {
+export default {
   created () {
     this.$storage.set('test', 'value')
     const key = this.$storage.key(0)
@@ -178,7 +178,7 @@ expoft default {
 Пример:
 
 ```javascript
-expoft default {
+export default {
   created () {
     this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
     this.$storage.set('lol', { key: 'value' }, { ttl: 60 * 1000 })
@@ -197,7 +197,7 @@ expoft default {
 Пример:
 
 ```javascript
-expoft default {
+export default {
   created () {
     this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
     this.$storage.set('lol', { key: 'value' }, { ttl: 60 * 1000 })
