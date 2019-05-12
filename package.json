@@ -1,7 +1,7 @@
 {
   "name": "vue2-storage",
   "description": "Browser storage for Vue.js app",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "author": {
     "name": "Yarkov Aleksey",
     "email": "yarkovaleksei25@gmail.com"
@@ -27,7 +27,8 @@
     "clean": "rimraf dist/*.js* ./*.log"
   },
   "files": [
-    "dist/*.js"
+    "dist/*.js",
+    "dist/*.ts"
   ],
   "homepage": "https://github.com/yarkovaleksei/vue2-storage#readme",
   "main": "dist/vue2-storage.common.js",

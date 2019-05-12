@@ -1,5 +1,5 @@
 /*!
- * vue2-storage v4.0.2 
+ * vue2-storage v4.0.3 
  * (c) 2019 Yarkov Aleksey
  * Released under the MIT License.
  */
@@ -148,7 +148,7 @@ class Vue2Storage {
         return 'vue2-storage';
     }
     get version() {
-        return '4.0.2';
+        return '4.0.3';
     }
     get driver() {
         switch (this.options.driver) {
