@@ -1,13 +1,13 @@
 /*!
- * vue2-storage v4.0.3 
+ * vue2-storage v4.0.4 
  * (c) 2019 Yarkov Aleksey
  * Released under the MIT License.
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global = global || self, global.Vue2Storage = factory());
-}(this, function () { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(global = global || self, factory(global.Vue2Storage = {}));
+}(this, function (exports) { 'use strict';
 
 	/*
 	object-assign
@@ -152,7 +152,7 @@
 	        return 'vue2-storage';
 	    }
 	    get version() {
-	        return '4.0.3';
+	        return '4.0.4';
 	    }
 	    get driver() {
 	        switch (this.options.driver) {
@@ -164,11 +164,6 @@
 	            case StorageDriver.MEMORY:
 	                return MemoryStorage$1;
 	        }
-	    }
-	    static install(Vue, options) {
-	        const storage = new Vue2Storage(options);
-	        Vue.$storage = storage;
-	        Vue.prototype.$storage = storage;
 	    }
 	    setOptions(config = {}) {
 	        const options = objectAssign({
@@ -280,11 +275,21 @@
 	    }
 	}
 
+	class Vue2Storage$1 {
+	    static install(Vue, options) {
+	        const storage = new Vue2Storage(options);
+	        Vue.$storage = storage;
+	        Vue.prototype.$storage = storage;
+	    }
+	}
 	if (typeof window !== 'undefined') {
 	    // tslint:disable-next-line
-	    window['Vue2Storage'] = Vue2Storage;
+	    window['Vue2Storage'] = Vue2Storage$1;
 	}
 
-	return Vue2Storage;
+	exports.Vue2Storage = Vue2Storage$1;
+	exports.default = Vue2Storage$1;
+
+	Object.defineProperty(exports, '__esModule', { value: true });
 
 }));

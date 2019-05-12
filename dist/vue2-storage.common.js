@@ -1,9 +1,11 @@
 /*!
- * vue2-storage v4.0.3 
+ * vue2-storage v4.0.4 
  * (c) 2019 Yarkov Aleksey
  * Released under the MIT License.
  */
 'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
 
 /*
 object-assign
@@ -148,7 +150,7 @@ class Vue2Storage {
         return 'vue2-storage';
     }
     get version() {
-        return '4.0.3';
+        return '4.0.4';
     }
     get driver() {
         switch (this.options.driver) {
@@ -160,11 +162,6 @@ class Vue2Storage {
             case StorageDriver.MEMORY:
                 return MemoryStorage$1;
         }
-    }
-    static install(Vue, options) {
-        const storage = new Vue2Storage(options);
-        Vue.$storage = storage;
-        Vue.prototype.$storage = storage;
     }
     setOptions(config = {}) {
         const options = objectAssign({
@@ -276,9 +273,17 @@ class Vue2Storage {
     }
 }
 
+class Vue2Storage$1 {
+    static install(Vue, options) {
+        const storage = new Vue2Storage(options);
+        Vue.$storage = storage;
+        Vue.prototype.$storage = storage;
+    }
+}
 if (typeof window !== 'undefined') {
     // tslint:disable-next-line
-    window['Vue2Storage'] = Vue2Storage;
+    window['Vue2Storage'] = Vue2Storage$1;
 }
 
-module.exports = Vue2Storage;
+exports.Vue2Storage = Vue2Storage$1;
+exports.default = Vue2Storage$1;

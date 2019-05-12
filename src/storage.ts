@@ -37,12 +37,6 @@ export default class Vue2Storage {
     }
   }
 
-  static install (Vue: any, options: StorageOptions): void {
-    const storage = new Vue2Storage(options);
-    Vue.$storage = storage;
-    Vue.prototype.$storage = storage;
-  }
-
   setOptions (config: StorageOptions = {}): void {
     const options = objectAssign({
       prefix: 'app_',

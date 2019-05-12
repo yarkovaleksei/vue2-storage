@@ -1,7 +1,7 @@
 {
   "name": "vue2-storage",
   "description": "Browser storage for Vue.js app",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "author": {
     "name": "Yarkov Aleksey",
     "email": "yarkovaleksei25@gmail.com"
