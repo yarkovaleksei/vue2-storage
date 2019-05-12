@@ -4,7 +4,7 @@
 
 https://unpkg.com/vue2-storage/dist/vue2-storage
 
-[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/vue2-storage@3.4.0/dist/vue2-storage.js...........
+[unpkg.com](https://unpkg.com) provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like https://unpkg.com/vue2-storage@{{book.packageVersion}}/dist/vue2-storage.js
 
 Include vue2-storage after Vue and use according to the documentation:
 
@@ -42,5 +42,5 @@ you want to use the latest dev build.
 
     $ git clone https://github.com/yarkovaleksei/vue2-storage.git node_modules/vue2-storage
     $ cd node_modules/vue2-storage
-    $ npm install
-    $ npm run build
+    $ yarn
+    $ yarn build

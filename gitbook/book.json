@@ -1,10 +1,10 @@
 {
   "gitbook": "3.x.x",
   "root": "./",
-  "plugins": ["edit-link", "theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git", "-fontsettings", "github", "advanced-emoji@0.2.1"],
+  "plugins": ["edit-link", "theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git", "github"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/yarkovaleksei/vue2-storage/tree/dev/gitbook",
+      "base": "https://github.com/yarkovaleksei/vue2-storage/tree/master/gitbook",
       "label": "Edit This Page"
     },
     "github": {
@@ -16,5 +16,9 @@
       "facebook": true,
       "twitter": true
     }
+  },
+  "variables": {
+    "packageName": "vue2-storage",
+    "packageVersion": "4.0.0"
   }
 }

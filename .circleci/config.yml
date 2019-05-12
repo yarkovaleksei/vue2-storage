@@ -7,62 +7,51 @@ jobs:
   build:
     branches:
       only:
+        - dev
         - master
     docker:
       # specify the version you desire here
-      - image: circleci/node:9
+      - image: circleci/node:10
     environment:
       - TERM: xterm
-      - CHROME_BIN: /usr/bin/google-chrome
 
     working_directory: ~/repo
 
     steps:
       - checkout
 
-      - run:
-          name: Install apt dependencies
-          command: |
-            curl https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-            sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
-            sudo apt-get update -qq
-            sudo apt-get install -qy libelf1 google-chrome-stable
-
       - restore_cache:
-          key: dependencies-{{ checksum "package.json" }}
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
 
       - run:
-          name: Install dependencies
-          command: |
-            npm install
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
 
       - save_cache:
-          key: dependencies-{{ checksum "package.json" }}
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
+            - ~/.cache/yarn
 
       - run:
-          name: Run eslint check
+          name: Run typescript lint
           command: |
-            npm run lint
-
-      - run:
-          name: Run flow check
-          command: |
-            npm run flow
+            yarn lint
 
       - run:
           name: Build package
           command: |
-            npm run build
-
-      - run:
-          name: Build docs
-          command: |
-            npm run docs:install
-            npm run docs:build
+            yarn build
 
       - run:
           name: Run tests
           command: |
-            npm run test
+            yarn test
+
+      - run:
+          name: Build docs
+          command: |
+            yarn docs:install
+            yarn docs:build

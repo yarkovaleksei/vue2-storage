@@ -4,7 +4,7 @@
 
 https://unpkg.com/vue2-storage/dist/vue2-storage
 
-[unpkg.com](https://unpkg.com) предоставляет ссылки на CDN на основе NPM. Вышеуказанная ссылка всегда указывает на последнюю версию NPM пакета. Вы также можете использовать конкретную версию/тег через URL-адрес, например https://unpkg.com/vue2-storage@3.4.0/dist/vue2-storage.js...........
+[unpkg.com](https://unpkg.com) предоставляет ссылки на CDN на основе NPM. Вышеуказанная ссылка всегда указывает на последнюю версию NPM пакета. Вы также можете использовать конкретную версию/тег через URL-адрес, например https://unpkg.com/vue2-storage@{{book.packageVersion}}/dist/vue2-storage.js
 
 Подключите vue2-storage после Vue и используйте согласно документации:
 
@@ -42,5 +42,5 @@ Vue.use(Vue2Storage)
 
     $ git clone https://github.com/yarkovaleksei/vue2-storage.git node_modules/vue2-storage
     $ cd node_modules/vue2-storage
-    $ npm install
-    $ npm run build
+    $ yarn
+    $ yarn build

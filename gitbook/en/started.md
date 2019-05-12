@@ -21,7 +21,7 @@
     ttl: 60 * 60 * 24 * 1000 // 24 hours
   })
 
-  new Vue({
+  new window.Vue({
     el: '#app',
     created () {
       // The configuration of the plugin can be changed at any time.

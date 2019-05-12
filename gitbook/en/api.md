@@ -190,19 +190,21 @@ export default {
 
 Return value: `Array<string>`
 
+- - -
+# Properties
+
 ### length
 
-The method returns the number of keys in the repository.
+Returns the number of records in the storage.
 
 Example:
 
 ```javascript
 export default {
   created () {
-    this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
-    this.$storage.set('lol', { key: 'value' }, { ttl: 60 * 1000 })
-    const length = this.$storage.length()
-    console.log(length) // 2
+    this.$storage.set('test', { key: 'value' })
+    this.$storage.set('lol', { key: 'value' })
+    console.log(this.$storage.length) // 2
   }
 }
 ```
@@ -210,8 +212,24 @@ export default {
 Return value: `Number`
 
 - - -
-# Properties
 
-### length
+### prefix
 
-Returns the number of records in the storage.
+Returns the prefix of records in the storage.
+
+Example:
+
+```javascript
+export default {
+  created () {
+    this.$storage.setOptions({
+      prefix: 'app_',
+      driver: 'local',
+      ttl: 60 * 60 * 24 * 1000 // 24 часа
+    })
+    console.log(this.$storage.prefix) // app_
+  }
+}
+```
+
+Return value: `String`

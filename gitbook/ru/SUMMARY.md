@@ -15,6 +15,6 @@
     - [has](api.md#has)
     - [key](api.md#key)
     - [keys](api.md#keys)
-    - [length](api.md#length)
   - [Свойства](api.md#свойства)
     - [length](api.md#length)
+    - [prefix](api.md#prefix)
