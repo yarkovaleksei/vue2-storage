@@ -190,19 +190,22 @@ export default {
 
 Возвращаемое значение: `Array<string>`
 
+- - -
+
+# Свойства
+
 ### length
 
-Метод возвращает количество ключей в хранилище.
+Возвращает количество записей в хранилище.
 
 Пример:
 
 ```javascript
 export default {
   created () {
-    this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
-    this.$storage.set('lol', { key: 'value' }, { ttl: 60 * 1000 })
-    const length = this.$storage.length()
-    console.log(length) // 2
+    this.$storage.set('test', { key: 'value' })
+    this.$storage.set('lol', { key: 'value' })
+    console.log(this.$storage.length) // 2
   }
 }
 ```
@@ -210,8 +213,24 @@ export default {
 Возвращаемое значение: `Number`
 
 - - -
-# Свойства
 
-### length
+### prefix
 
-Возвращает количество записей в хранилище.
+Возвращает префикс записей в хранилище.
+
+Пример:
+
+```javascript
+export default {
+  created () {
+    this.$storage.setOptions({
+      prefix: 'app_',
+      driver: 'local',
+      ttl: 60 * 60 * 24 * 1000 // 24 часа
+    })
+    console.log(this.$storage.prefix) // app_
+  }
+}
+```
+
+Возвращаемое значение: `String`
