@@ -41,7 +41,7 @@
 ```javascript
 // Если вы используете модульную систему (например via vue-cli), то импортируйте Vue и Vue2Storage и подключите плагин через` Vue.use(Vue2Storage)`
 import Vue from 'vue'
-import Vue2Storage from 'vue2-storage'
+import {Vue2Storage} from 'vue2-storage'
 
 // Вы можете указать конфигурацию плагина при подключении, передав в Vue.use вторым аргументом объект с настройками
 Vue.use(Vue2Storage, {

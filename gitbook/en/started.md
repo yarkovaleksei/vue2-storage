@@ -41,7 +41,7 @@
 ```javascript
 // If using a module system (e.g. via vue-cli), import Vue and Vue2Storage and then call Vue.use(Vue2Storage).
 import Vue from 'vue'
-import Vue2Storage from 'vue2-storage'
+import {Vue2Storage} from 'vue2-storage'
 
 // You can specify the plug-in configuration when connecting, passing the second object to Vue.use
 Vue.use(Vue2Storage, {
