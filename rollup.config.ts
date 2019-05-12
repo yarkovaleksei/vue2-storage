@@ -4,6 +4,7 @@ import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import copy from 'rollup-plugin-copy';
+import uglify from 'rollup-plugin-uglify-es';
 
 const banner = require('./config/banner');
 const pack = require('./package.json');
@@ -43,7 +44,6 @@ export default [
   {
     input: 'src/index.ts',
     plugins,
-    external: ['object-assign'],
     output: {
       file: `dist/${pack.name}.common.js`,
       format: 'cjs',
@@ -56,7 +56,6 @@ export default [
   {
     input: 'src/index.ts',
     plugins,
-    external: ['object-assign'],
     output: {
       file: `dist/${pack.name}.esm.js`,
       format: 'es',
@@ -68,8 +67,7 @@ export default [
   },
   {
     input: 'src/index.ts',
-    plugins,
-    external: ['object-assign'],
+    plugins: plugins.concat(uglify()),
     output: {
       file: `dist/${pack.name}.min.js`,
       format: 'umd',
@@ -78,13 +76,11 @@ export default [
         'object-assign': 'objectAssign',
       },
       name: moduleName,
-      compact: true,
     },
   },
   {
     input: 'src/index.ts',
     plugins,
-    external: ['object-assign'],
     output: {
       file: `dist/${pack.name}.js`,
       format: 'umd',
