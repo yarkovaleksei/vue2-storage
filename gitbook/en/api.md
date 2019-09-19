@@ -18,7 +18,7 @@ export default {
     this.$storage.setOptions({
       prefix: 'app_',
       driver: 'local',
-      ttl: 60 * 60 * 24 * 1000 // 24 часа
+      ttl: 60 * 60 * 24 * 1000 // 24 hours
     })
   }
 }
@@ -159,7 +159,7 @@ Arguments:
 |----------|----------|----------|----------|----------|
 | `index`  | `Number` |          | +        |          |
 
-Пример:
+Exemple:
 
 ```javascript
 export default {
@@ -225,7 +225,7 @@ export default {
     this.$storage.setOptions({
       prefix: 'app_',
       driver: 'local',
-      ttl: 60 * 60 * 24 * 1000 // 24 часа
+      ttl: 60 * 60 * 24 * 1000 // 24 hours
     })
     console.log(this.$storage.prefix) // app_
   }
