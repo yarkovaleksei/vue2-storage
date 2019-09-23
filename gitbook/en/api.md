@@ -159,7 +159,7 @@ Arguments:
 |----------|----------|----------|----------|----------|
 | `index`  | `Number` |          | +        |          |
 
-Exemple:
+Example:
 
 ```javascript
 export default {
