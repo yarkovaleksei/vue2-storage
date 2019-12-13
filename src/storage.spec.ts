@@ -166,5 +166,32 @@ drivers.forEach((driver) => {
         done();
       });
     });
+
+    describe('Remember items', () => {
+      it('Retrieve from callable and set item', async (done) => {
+        const returned = await vm.$storage.remember('test', async () => {
+          return 'success';
+        });
+        expect(vm.$storage.get('test') === 'success').toEqual(true);
+        expect(returned === 'success').toEqual(true);
+        done();
+      });
+    });
+
+    describe('Pull items', () => {
+      it('Retrieve item and make sure it gets removed', (done) => {
+        vm.$storage.set('test', 'test');
+        const returned = vm.$storage.pull('test');
+        expect(returned === 'test').toEqual(true);
+        expect(vm.$storage.get('test', null) === null).toEqual(true);
+        done();
+      });
+
+      it('Try to fetch inexistent item and check fallback', (done) => {
+        const returned = vm.$storage.pull('nonexistent', 'fallback');
+        expect(returned === 'fallback').toEqual(true);
+        done();
+      });
+    });
   });
 });
