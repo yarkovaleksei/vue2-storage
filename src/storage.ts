@@ -59,6 +59,15 @@ export default class Vue2Storage {
     }
   }
 
+  pull (key: string, fallback: any = null) {
+    const val = this.get(key, fallback);
+    if (val !== fallback) {
+      this.remove(key);
+    }
+
+    return val;
+  }
+
   set (key: string, val: any, options: SetterOptions = {}): void {
     try {
       this.driver.setItem(this.addPrefix(key), this.toJSON(val, options));
