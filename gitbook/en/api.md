@@ -35,7 +35,7 @@ Arguments:
 | `key`    | `String` |          | +        |          |
 | `fallback`    | `*` |          | -        |          |
 
-Пример:
+Example:
 
 ```javascript
 export default {
