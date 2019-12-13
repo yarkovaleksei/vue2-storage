@@ -51,6 +51,33 @@ export default {
 
 Return value: `Any`
 
+### pull
+
+The method allows you to retrieve a value and delete it from the repository using a string key.
+
+Arguments:
+
+|   name   |   type   | default  | required | allow values |
+|----------|----------|----------|----------|----------|
+| `key`    | `String` |          | +        |          |
+| `fallback`    | `*` |          | -        |          |
+
+Example:
+
+```javascript
+export default {
+  created () {
+    this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
+    const data = this.$storage.pull('test')
+    const fallback = this.$storage.get('test', 'fallback') // Not in storage anymore
+    console.log(data) // { key: 'value' }
+    console.log(fallback) // "fallback"
+  }
+}
+```
+
+Return value: `Any`
+
 ### set
 
 The method allows you to write the value in the store by specifying the string key and the lifetime.
@@ -74,6 +101,35 @@ export default {
   }
 }
 ```
+
+### remember
+
+The method allows you to retrieve an item. If given key already exists it will immediately return its value.
+Otherwise the passed function gets executed and its return value is saved to the store before returning it. 
+
+Arguments:
+
+|   name   |   type         | default  | required | allow values |
+|----------|----------------|----------|----------|----------|
+| `key`    | `String`       |          | +        |          |
+| `closure`| `Promise<any>` |          | +        |          |
+| `options`| `Object`       |  `{}`    | -        | `{ ttl: number }`|
+
+Example:
+
+```javascript
+export default {
+  async created () {
+    const data = await this.$storage.remember('test', async () => {
+        // Do HTTP calls or other async stuff
+        return 'value'
+    })
+    console.log(data) // outputs "value"
+  }
+}
+```
+
+Return value: `Any`
 
 ### remove
 
