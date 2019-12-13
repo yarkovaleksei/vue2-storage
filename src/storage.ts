@@ -76,6 +76,21 @@ export default class Vue2Storage {
     }
   }
 
+  async remember(key: string, closure: () => Promise<any>, options: SetterOptions = {}) {
+    let val = this.get(key, null);
+    if (val !== null) {
+      return val;
+    }
+
+    try {
+      val = await closure();
+      this.set(key, val, options);
+      return val;
+    } catch (e) {
+      this.printError(e);
+    }
+  }
+
   remove (key: string): void {
     try {
       this.driver.removeItem(this.addPrefix(key));
