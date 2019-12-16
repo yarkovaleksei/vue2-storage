@@ -105,7 +105,7 @@ export default {
 ### remember
 
 The method allows you to retrieve an item. If given key already exists it will immediately return its value.
-Otherwise the passed function gets executed and its return value is saved to the store before returning it. 
+Otherwise the passed function gets executed and its return value is saved to the store before returning it.
 
 Arguments:
 

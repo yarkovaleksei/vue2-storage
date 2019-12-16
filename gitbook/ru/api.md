@@ -51,6 +51,33 @@ export default {
 
 Возвращаемое значение: `Any`
 
+### pull
+
+Метод позволяет извлечь значение и удалить его из хранилища, используя строковый ключ.
+
+Аргументы:
+
+|   name   |   type   | default  | required | allow values |
+|----------|----------|----------|----------|----------|
+| `key`    | `String` |          | +        |          |
+| `fallback`    | `*` |          | -        |          |
+
+Пример:
+
+```javascript
+export default {
+  created () {
+    this.$storage.set('test', { key: 'value' }, { ttl: 60 * 1000 })
+    const data = this.$storage.pull('test')
+    const fallback = this.$storage.get('test', 'fallback') // Извлекаем и удаляем из хранилища
+    console.log(data) // { key: 'value' }
+    console.log(fallback) // "fallback"
+  }
+}
+```
+
+Возвращаемое значение: `Any`
+
 ### set
 
 Метод позволяет записать значение в хранилище, указав строковой ключ и время жизни.
@@ -74,6 +101,35 @@ export default {
   }
 }
 ```
+
+### remember
+
+Метод позволяет получить элемент. Если переданный ключ уже существует, то метод немедленно вернет его значение.
+В противном случае переданная функция выполняется и ее возвращаемое значение сохраняется в хранилище перед его возвратом.
+
+Аргументы:
+
+|   name   |   type         | default  | required | allow values |
+|----------|----------------|----------|----------|----------|
+| `key`    | `String`       |          | +        |          |
+| `closure`| `Promise<any>` |          | +        |          |
+| `options`| `Object`       |  `{}`    | -        | `{ ttl: number }`|
+
+Пример:
+
+```javascript
+export default {
+  async created () {
+    const data = await this.$storage.remember('test', async () => {
+        // Делаем HTTP-запросы или другие асинхронные вещи
+        return 'value'
+    })
+    console.log(data) // выведет "value"
+  }
+}
+```
+
+Возвращаемое значение: `Any`
 
 ### remove
 
