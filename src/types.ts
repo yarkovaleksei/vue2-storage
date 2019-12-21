@@ -16,8 +16,6 @@ export enum StorageDriver {
   MEMORY  = 'memory',
 }
 
-export type Dictionary<T = any> = { [index: string]: T };
-
 export declare class Vue2Storage {
   static install: PluginFunction<StorageOptions>;
   readonly length: number;

@@ -1,13 +1,11 @@
-import { Dictionary } from './types';
-
-const storage: Dictionary<any> = {};
+const storage: Record<string, any> = {};
 
 class MemoryStorage {
   get length (): number {
     return Object.keys(this.storage).length;
   }
 
-  get storage (): Dictionary {
+  get storage (): Record<string, any> {
     return storage;
   }
 

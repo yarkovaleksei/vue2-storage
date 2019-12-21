@@ -1,7 +1,7 @@
 {
   "name": "vue2-storage",
   "description": "Browser storage for Vue.js app",
-  "version": "4.0.7",
+  "version": "5.0.0",
   "author": {
     "name": "Yarkov Aleksey",
     "email": "yarkovaleksei25@gmail.com"
@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.12",
+    "@types/object-assign": "^4.0.30",
     "cross-env": "^5.2.0",
     "gitbook-cli": "^2.3.2",
     "husky": "^2.2.0",

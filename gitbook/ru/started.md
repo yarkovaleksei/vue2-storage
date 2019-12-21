@@ -9,9 +9,7 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue2-storage/dist/vue2-storage.js"></script>
 
-<div id="#app">
-  <!-- TODO: here the outputs -->
-</div>
+<div id="#app"></div>
 
 <script>
   // Вы можете указать конфигурацию плагина при подключении, передав в Vue.use вторым аргументом объект с настройками
@@ -47,10 +45,8 @@ import {Vue2Storage} from 'vue2-storage'
 Vue.use(Vue2Storage, {
   prefix: 'app_',
   driver: 'local',
-  ttl: 60 * 60 * 24 * 1000
+  ttl: 60 * 60 * 24 * 1000 // 24 часа
 })
-
-// TODO: here the example
 
 // Приложение запустилось!
 new Vue({
@@ -61,14 +57,12 @@ new Vue({
     this.$storage.setOptions({
       prefix: 'app_',
       driver: 'local',
-      ttl: 60 * 60 * 24 * 1000
+      ttl: 60 * 60 * 24 * 1000 // 24 часа
     })
   }
 }).$mount('#app')
 ```
 
 ```html
-<div id="#app">
-  <!-- TODO: here the outputs -->
-</div>
+<div id="#app"></div>
 ```

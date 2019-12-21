@@ -51,6 +51,8 @@ export default {
 
 Return value: `Any`
 
+_In case of failure, the method will throw a `StorageError` exception_
+
 ### pull
 
 The method allows you to retrieve a value and delete it from the repository using a string key.
@@ -102,6 +104,8 @@ export default {
 }
 ```
 
+_In case of failure, the method will throw a `StorageError` exception_
+
 ### remember
 
 The method allows you to retrieve an item. If given key already exists it will immediately return its value.
@@ -131,6 +135,8 @@ export default {
 
 Return value: `Any`
 
+_In case of failure, the method will throw a `StorageError` exception_
+
 ### remove
 
 The method allows you to delete a value from the repository using a string key.
@@ -153,6 +159,8 @@ export default {
   }
 }
 ```
+
+_In case of failure, the method will throw a `StorageError` exception_
 
 ### clear
 
@@ -178,6 +186,8 @@ export default {
   }
 }
 ```
+
+_In case of failure, the method will throw a `StorageError` exception_
 
 ### has
 
@@ -226,6 +236,10 @@ export default {
   }
 }
 ```
+
+Return value: `Any`
+
+_In case of failure, the method will throw a `StorageError` exception_
 
 ### keys
 

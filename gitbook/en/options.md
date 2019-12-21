@@ -6,4 +6,4 @@ To install the configuration, the plug-in accepts an object of a certain format.
 
 `driver` - the identifier of the storage used. While values are supported **local**, **session** and **memory** (**localStorage**, **sessionStorage** and **memoryStorage** respectively). Default is an `local`.
 
-`ttl` - record lifetime in seconds. Default is an `60 * 60 * 24 * 1000 // 24 hours`.
+`ttl` - record lifetime in milliseconds. Default is an `0 // disables the lifetime and the record will be kept forever`.

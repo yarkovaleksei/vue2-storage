@@ -1,5 +1,5 @@
 /*!
- * vue2-storage v4.0.7 
+ * vue2-storage v5.0.0 
  * (c) 2019 Yarkov Aleksey
  * Released under the MIT License.
  */
@@ -162,6 +162,16 @@
         StorageDriver["MEMORY"] = "memory";
     })(StorageDriver || (StorageDriver = {}));
 
+    class StorageError extends Error {
+        constructor(message, stack) {
+            super(message);
+            this.name = 'StorageError';
+            if (stack) {
+                this.stack = stack;
+            }
+        }
+    }
+
     class Vue2Storage {
         constructor(config = {}) {
             this.setOptions(config);
@@ -176,7 +186,7 @@
             return 'vue2-storage';
         }
         get version() {
-            return '4.0.7';
+            return '5.0.0';
         }
         get driver() {
             switch (this.options.driver) {
@@ -190,11 +200,12 @@
             }
         }
         setOptions(config = {}) {
-            const options = objectAssign({
+            const defaultOptions = {
                 prefix: 'app_',
                 driver: StorageDriver.LOCAL,
-                ttl: 60 * 60 * 24 * 1000,
-            }, config);
+                ttl: 0,
+            };
+            const options = objectAssign(defaultOptions, config);
             this.options = Object.freeze(options);
         }
         get(key, fallback = null) {
@@ -206,7 +217,7 @@
                 return val;
             }
             catch (e) {
-                this.printError(e);
+                this.throwError(e);
             }
         }
         pull(key, fallback = null) {
@@ -221,7 +232,7 @@
                 this.driver.setItem(this.addPrefix(key), this.toJSON(val, options));
             }
             catch (e) {
-                this.printError(e);
+                this.throwError(e);
             }
         }
         remember(key, closure, options = {}) {
@@ -236,7 +247,7 @@
                     return val;
                 }
                 catch (e) {
-                    this.printError(e);
+                    this.throwError(e);
                 }
             });
         }
@@ -245,7 +256,7 @@
                 this.driver.removeItem(this.addPrefix(key));
             }
             catch (e) {
-                this.printError(e);
+                this.throwError(e);
             }
         }
         clear(force = false) {
@@ -259,7 +270,7 @@
                 }
             }
             catch (e) {
-                this.printError(e);
+                this.throwError(e);
             }
         }
         has(key) {
@@ -274,7 +285,7 @@
                 return this.get(this.removePrefix(key));
             }
             catch (e) {
-                this.printError(e);
+                this.throwError(e);
             }
         }
         keys() {
@@ -294,15 +305,16 @@
             const ttl = ('ttl' in options) ? options.ttl : this.options.ttl;
             return JSON.stringify({
                 value: data,
-                ttl: Date.now() + ttl,
+                ttl: ttl > 0 ? ttl + Date.now() : 0,
             });
         }
         fromJSON(key) {
             try {
                 const data = JSON.parse(this.driver.getItem(key));
                 if (data !== null) {
-                    if (('ttl' in data) &&
-                        Number(data.ttl) < Date.now()) {
+                    if (('ttl' in data)
+                        && Number(data.ttl) > 0
+                        && Number(data.ttl) < Date.now()) {
                         this.remove(this.removePrefix(key));
                         return null;
                     }
@@ -317,8 +329,8 @@
                 return null;
             }
         }
-        printError(e) {
-            console.error(`${this.name}[${this.version}]: ${e.stack}`);
+        throwError(e) {
+            throw new StorageError(`${this.name}[${this.version}]: ${e.message}`, e.stack);
         }
     }
 

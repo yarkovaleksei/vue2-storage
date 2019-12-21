@@ -1,6 +1,7 @@
 import objectAssign from 'object-assign';
 import MemoryStorage from './MemoryStorage';
-import { Dictionary, SetterOptions, StorageDriver, StorageOptions } from './types';
+import { SetterOptions, StorageDriver, StorageOptions } from './types';
+import { StorageError } from './storage-error';
 
 export default class Vue2Storage {
   private options: StorageOptions;
@@ -38,11 +39,12 @@ export default class Vue2Storage {
   }
 
   setOptions (config: StorageOptions = {}): void {
-    const options = objectAssign({
+    const defaultOptions: StorageOptions = {
       prefix: 'app_',
       driver: StorageDriver.LOCAL,
-      ttl: 60 * 60 * 24 * 1000, // 24 hours
-    },                           config);
+      ttl: 0, // Infinity
+    };
+    const options = objectAssign(defaultOptions, config);
     this.options = Object.freeze(options);
   }
 
@@ -55,7 +57,7 @@ export default class Vue2Storage {
 
       return val;
     } catch (e) {
-      this.printError(e);
+      this.throwError(e);
     }
   }
 
@@ -72,7 +74,7 @@ export default class Vue2Storage {
     try {
       this.driver.setItem(this.addPrefix(key), this.toJSON(val, options));
     } catch (e) {
-      this.printError(e);
+      this.throwError(e);
     }
   }
 
@@ -88,7 +90,7 @@ export default class Vue2Storage {
 
       return val;
     } catch (e) {
-      this.printError(e);
+      this.throwError(e);
     }
   }
 
@@ -96,7 +98,7 @@ export default class Vue2Storage {
     try {
       this.driver.removeItem(this.addPrefix(key));
     } catch (e) {
-      this.printError(e);
+      this.throwError(e);
     }
   }
 
@@ -109,7 +111,7 @@ export default class Vue2Storage {
         keys.forEach((key) => this.remove(this.removePrefix(key)));
       }
     } catch (e) {
-      this.printError(e);
+      this.throwError(e);
     }
   }
 
@@ -127,7 +129,7 @@ export default class Vue2Storage {
 
       return this.get(this.removePrefix(key));
     } catch (e) {
-      this.printError(e);
+      this.throwError(e);
     }
   }
 
@@ -154,20 +156,24 @@ export default class Vue2Storage {
 
     return JSON.stringify({
       value: data,
-      ttl: Date.now() + ttl,
+      ttl: ttl > 0 ? ttl + Date.now() : 0,
     });
   }
 
   private fromJSON (key: string): any {
     try {
-      const data: Dictionary<any> = JSON.parse(this.driver.getItem(key));
+      const data: Record<string, any> = JSON.parse(this.driver.getItem(key));
+
       if (data !== null) {
-        if (('ttl' in data) &&
-          Number(data.ttl) < Date.now()) {
+        if (('ttl' in data)
+            && Number(data.ttl) > 0
+            && Number(data.ttl) < Date.now()
+        ) {
           this.remove(this.removePrefix(key));
 
           return null;
         }
+
         if ('value' in data) {
           return data.value;
         }
@@ -181,7 +187,7 @@ export default class Vue2Storage {
     }
   }
 
-  private printError (e: Error): void {
-    console.error(`${this.name}[${this.version}]: ${e.stack}`);
+  private throwError (e: Error): void {
+    throw new StorageError(`${this.name}[${this.version}]: ${e.message}`, e.stack);
   }
 }

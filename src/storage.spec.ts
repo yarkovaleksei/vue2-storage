@@ -87,7 +87,7 @@ drivers.forEach((driver) => {
     describe('Set item with TTL 3 seconds', () => {
       it('Set item', async (done) => {
         const data = { a: 1 };
-        vm.$storage.set('test', data, { ttl: 3 });
+        vm.$storage.set('test', data, { ttl: 3000 });
 
         await new Promise((resolve) => setTimeout(resolve, 4000));
 
@@ -190,6 +190,20 @@ drivers.forEach((driver) => {
       it('Try to fetch inexistent item and check fallback', (done) => {
         const returned = vm.$storage.pull('nonexistent', 'fallback');
         expect(returned === 'fallback').toEqual(true);
+        done();
+      });
+    });
+
+    describe('Error', () => {
+      it('Remember error', async (done) => {
+        try {
+          await vm.$storage.remember('test', async () => {
+            throw new Error('Remember error');
+          });
+        } catch (error) {
+          expect(error.name === 'StorageError').toEqual(true);
+          expect(error.message === '__NAME__[__VERSION__]: Remember error').toEqual(true);
+        }
         done();
       });
     });
