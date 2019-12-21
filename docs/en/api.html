@@ -478,6 +478,7 @@
 }
 </code></pre>
 <p>Return value: <code>Any</code></p>
+<p><em>In case of failure, the method will throw a <code>StorageError</code> exception</em></p>
 <h3 id="pull">pull</h3>
 <p>The method allows you to retrieve a value and delete it from the repository using a string key.</p>
 <p>Arguments:</p>
@@ -565,6 +566,7 @@
   }
 }
 </code></pre>
+<p><em>In case of failure, the method will throw a <code>StorageError</code> exception</em></p>
 <h3 id="remember">remember</h3>
 <p>The method allows you to retrieve an item. If given key already exists it will immediately return its value.
 Otherwise the passed function gets executed and its return value is saved to the store before returning it.</p>
@@ -615,6 +617,7 @@ Otherwise the passed function gets executed and its return value is saved to the
 }
 </code></pre>
 <p>Return value: <code>Any</code></p>
+<p><em>In case of failure, the method will throw a <code>StorageError</code> exception</em></p>
 <h3 id="remove">remove</h3>
 <p>The method allows you to delete a value from the repository using a string key.</p>
 <p>Arguments:</p>
@@ -647,6 +650,7 @@ Otherwise the passed function gets executed and its return value is saved to the
   }
 }
 </code></pre>
+<p><em>In case of failure, the method will throw a <code>StorageError</code> exception</em></p>
 <h3 id="clear">clear</h3>
 <p>The method allows you to clear the repository.
 If the argument <code>force</code> is passed with a value of <code>true</code>, then the entire storage will be cleared.
@@ -681,6 +685,7 @@ Otherwise, only the values whose key begins with the prefix specified in the set
   }
 }
 </code></pre>
+<p><em>In case of failure, the method will throw a <code>StorageError</code> exception</em></p>
 <h3 id="has">has</h3>
 <p>The method allows you to find out whether there is an entry in the repository with the specified key.</p>
 <p>Arguments:</p>
@@ -746,6 +751,8 @@ Otherwise, only the values whose key begins with the prefix specified in the set
   }
 }
 </code></pre>
+<p>Return value: <code>Any</code></p>
+<p><em>In case of failure, the method will throw a <code>StorageError</code> exception</em></p>
 <h3 id="keys">keys</h3>
 <p>The method returns an array of storage keys.</p>
 <p>Example:</p>
@@ -832,7 +839,7 @@ Otherwise, only the values whose key begins with the prefix specified in the set
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"API","level":"1.5","depth":1,"next":{"title":"Methods","level":"1.5.1","depth":2,"anchor":"#methods","path":"api.md","ref":"api.md#methods","articles":[{"title":"setOptions","level":"1.5.1.1","depth":3,"anchor":"#setoptions","path":"api.md","ref":"api.md#setoptions","articles":[]},{"title":"get","level":"1.5.1.2","depth":3,"anchor":"#get","path":"api.md","ref":"api.md#get","articles":[]},{"title":"pull","level":"1.5.1.3","depth":3,"anchor":"#pull","path":"api.md","ref":"api.md#pull","articles":[]},{"title":"set","level":"1.5.1.4","depth":3,"anchor":"#set","path":"api.md","ref":"api.md#set","articles":[]},{"title":"remember","level":"1.5.1.5","depth":3,"anchor":"#remember","path":"api.md","ref":"api.md#remember","articles":[]},{"title":"remove","level":"1.5.1.6","depth":3,"anchor":"#remove","path":"api.md","ref":"api.md#remove","articles":[]},{"title":"clear","level":"1.5.1.7","depth":3,"anchor":"#clear","path":"api.md","ref":"api.md#clear","articles":[]},{"title":"has","level":"1.5.1.8","depth":3,"anchor":"#has","path":"api.md","ref":"api.md#has","articles":[]},{"title":"key","level":"1.5.1.9","depth":3,"anchor":"#key","path":"api.md","ref":"api.md#key","articles":[]},{"title":"keys","level":"1.5.1.10","depth":3,"anchor":"#keys","path":"api.md","ref":"api.md#keys","articles":[]}]},"previous":{"title":"Options","level":"1.4","depth":1,"path":"options.md","ref":"options.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git","github"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/yarkovaleksei/vue2-storage/"},"search":{},"theme-vuejs":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/yarkovaleksei/vue2-storage/tree/master/gitbook"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"packageName":"vue2-storage","packageVersion":"4.0.7"},"language":"en","links":{"sharing":{"facebook":true,"twitter":true}},"gitbook":"*"},"file":{"path":"api.md","mtime":"2019-12-16T09:09:32.267Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-16T09:31:36.710Z"},"basePath":".","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"API","level":"1.5","depth":1,"next":{"title":"Methods","level":"1.5.1","depth":2,"anchor":"#methods","path":"api.md","ref":"api.md#methods","articles":[{"title":"setOptions","level":"1.5.1.1","depth":3,"anchor":"#setoptions","path":"api.md","ref":"api.md#setoptions","articles":[]},{"title":"get","level":"1.5.1.2","depth":3,"anchor":"#get","path":"api.md","ref":"api.md#get","articles":[]},{"title":"pull","level":"1.5.1.3","depth":3,"anchor":"#pull","path":"api.md","ref":"api.md#pull","articles":[]},{"title":"set","level":"1.5.1.4","depth":3,"anchor":"#set","path":"api.md","ref":"api.md#set","articles":[]},{"title":"remember","level":"1.5.1.5","depth":3,"anchor":"#remember","path":"api.md","ref":"api.md#remember","articles":[]},{"title":"remove","level":"1.5.1.6","depth":3,"anchor":"#remove","path":"api.md","ref":"api.md#remove","articles":[]},{"title":"clear","level":"1.5.1.7","depth":3,"anchor":"#clear","path":"api.md","ref":"api.md#clear","articles":[]},{"title":"has","level":"1.5.1.8","depth":3,"anchor":"#has","path":"api.md","ref":"api.md#has","articles":[]},{"title":"key","level":"1.5.1.9","depth":3,"anchor":"#key","path":"api.md","ref":"api.md#key","articles":[]},{"title":"keys","level":"1.5.1.10","depth":3,"anchor":"#keys","path":"api.md","ref":"api.md#keys","articles":[]}]},"previous":{"title":"Options","level":"1.4","depth":1,"path":"options.md","ref":"options.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git","github"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/yarkovaleksei/vue2-storage/"},"search":{},"theme-vuejs":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/yarkovaleksei/vue2-storage/tree/master/gitbook"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"packageName":"vue2-storage","packageVersion":"5.0.0"},"language":"en","links":{"sharing":{"facebook":true,"twitter":true}},"gitbook":"*"},"file":{"path":"api.md","mtime":"2019-12-21T19:47:44.118Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-12-21T20:20:03.066Z"},"basePath":".","book":{"language":"en"}});
         });
     </script>
 </div>
