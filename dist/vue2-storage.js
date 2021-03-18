@@ -1,5 +1,5 @@
 /*!
- * vue2-storage v5.0.0 
+ * vue2-storage v5.1.0 
  * (c) 2021 Yarkov Aleksey
  * Released under the MIT License.
  */
@@ -187,7 +187,7 @@
             return 'vue2-storage';
         }
         get version() {
-            return '5.0.0';
+            return '5.1.0';
         }
         get driver() {
             switch (this.options.driver) {
