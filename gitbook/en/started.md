@@ -16,7 +16,8 @@
   window.Vue.use(window.Vue2Storage, {
     prefix: 'app_',
     driver: 'local',
-    ttl: 60 * 60 * 24 * 1000 // 24 hours
+    ttl: 60 * 60 * 24 * 1000, // 24 hours
+    replacer: (key, value) => value
   })
 
   new window.Vue({
@@ -27,7 +28,8 @@
       this.$storage.setOptions({
         prefix: 'app_',
         driver: 'local',
-        ttl: 60 * 60 * 24 * 1000 // 24 hours
+        ttl: 60 * 60 * 24 * 1000, // 24 hours
+        replacer: (key, value) => value
       })
     }
   }).$mount('#app')
@@ -45,7 +47,8 @@ import {Vue2Storage} from 'vue2-storage'
 Vue.use(Vue2Storage, {
   prefix: 'app_',
   driver: 'local',
-  ttl: 60 * 60 * 24 * 1000 // 24 hours
+  ttl: 60 * 60 * 24 * 1000, // 24 hours
+  replacer: (key, value) => value
 })
 
 // Now the app has started!
@@ -57,7 +60,8 @@ new Vue({
     this.$storage.setOptions({
       prefix: 'app_',
       driver: 'local',
-      ttl: 60 * 60 * 24 * 1000 // 24 hours
+      ttl: 60 * 60 * 24 * 1000, // 24 hours
+      replacer: (key, value) => value
     })
   }
 }).$mount('#app')

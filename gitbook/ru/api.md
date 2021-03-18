@@ -18,7 +18,8 @@ export default {
     this.$storage.setOptions({
       prefix: 'app_',
       driver: 'local',
-      ttl: 60 * 60 * 24 * 1000 // 24 часа
+      ttl: 60 * 60 * 24 * 1000, // 24 часа
+      replacer: (key, value) => value
     })
   }
 }
@@ -296,7 +297,8 @@ export default {
     this.$storage.setOptions({
       prefix: 'app_',
       driver: 'local',
-      ttl: 60 * 60 * 24 * 1000 // 24 часа
+      ttl: 60 * 60 * 24 * 1000, // 24 hours
+      replacer: (key, value) => value
     })
     console.log(this.$storage.prefix) // app_
   }

@@ -35,7 +35,8 @@ Vue.use(Vue2Storage)
 Vue.use(Vue2Storage, {
   prefix: 'app_',
   driver: 'local',
-  ttl: 60 * 60 * 24 * 1000 // 24 hours
+  ttl: 60 * 60 * 24 * 1000, // 24 hours
+  replacer: (key, value) => value
 })
 ```
 
