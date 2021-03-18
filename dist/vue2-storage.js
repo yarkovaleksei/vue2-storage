@@ -1,6 +1,6 @@
 /*!
  * vue2-storage v5.0.0 
- * (c) 2019 Yarkov Aleksey
+ * (c) 2021 Yarkov Aleksey
  * Released under the MIT License.
  */
 (function (global, factory) {
@@ -172,6 +172,7 @@
         }
     }
 
+    const availableDrivers = ['local', 'session', 'memory'];
     class Vue2Storage {
         constructor(config = {}) {
             this.setOptions(config);
@@ -205,6 +206,7 @@
                 driver: StorageDriver.LOCAL,
                 ttl: 0,
             };
+            this.checkConfig(config);
             const options = objectAssign(defaultOptions, config);
             this.options = Object.freeze(options);
         }
@@ -294,6 +296,28 @@
             }
             return Object.keys(this.driver.storage);
         }
+        checkConfig(config) {
+            if (config.prefix !== undefined) {
+                if (typeof config.prefix !== 'string') {
+                    this.throwError(new TypeError('Option "prefix" must be a string'));
+                }
+            }
+            if (config.driver !== undefined) {
+                if (!availableDrivers.includes(config.driver)) {
+                    this.throwError(new TypeError(`Option "driver" must be one of ${availableDrivers.join(', ')}`));
+                }
+            }
+            if (config.ttl !== undefined) {
+                if (typeof config.ttl !== 'number') {
+                    this.throwError(new TypeError('Option "ttl" must be a number'));
+                }
+            }
+            if (config.replacer !== undefined) {
+                if (typeof config.replacer !== 'function') {
+                    this.throwError(new TypeError('Option "replacer" must be a function'));
+                }
+            }
+        }
         addPrefix(key) {
             return `${this.options.prefix || ''}${key}`;
         }
@@ -303,9 +327,15 @@
         }
         toJSON(data, options = {}) {
             const ttl = ('ttl' in options) ? options.ttl : this.options.ttl;
+            const { replacer } = this.options;
             return JSON.stringify({
                 value: data,
                 ttl: ttl > 0 ? ttl + Date.now() : 0,
+            }, (key, value) => {
+                if (!replacer || key !== 'value') {
+                    return value;
+                }
+                return replacer(key, value);
             });
         }
         fromJSON(key) {

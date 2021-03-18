@@ -207,5 +207,64 @@ drivers.forEach((driver) => {
         done();
       });
     });
+
+    describe('Replacer', () => {
+      beforeEach(() => {
+        vm.$storage.clear(true);
+      });
+
+      it('Not transform data by default', (done) => {
+        vm.$storage.set('test', 'test');
+        expect(vm.$storage.get('test')).toEqual('test');
+        done();
+      });
+
+      describe('If replacer is function', () => {
+        it('Transform data if set "object"', (done) => {
+          vm.$storage.setOptions({
+            replacer: (_key: string, value: any) => ({ ...value, b: 2 }),
+          });
+          vm.$storage.set('key', { a: 1 });
+          expect(vm.$storage.get('key')).toEqual({ a: 1, b: 2 });
+          done();
+        });
+
+        it('Transform data if set "array"', (done) => {
+          vm.$storage.setOptions({
+            replacer: (_key: string, value: any) => value.map((v) => v + 1),
+          });
+          vm.$storage.set('key', [1, 2, 3]);
+          expect(vm.$storage.get('key')).toEqual([2, 3, 4]);
+          done();
+        });
+
+        it('Transform data if set "string"', (done) => {
+          vm.$storage.setOptions({
+            replacer: (_key: string, value: any) => String(value).repeat(2),
+          });
+          vm.$storage.set('key', 'repeat');
+          expect(vm.$storage.get('key')).toEqual('repeatrepeat');
+          done();
+        });
+
+        it('Transform data if set "number"', (done) => {
+          vm.$storage.setOptions({
+            replacer: (_key: string, value: any) => value * 2,
+          });
+          vm.$storage.set('key', 2);
+          expect(vm.$storage.get('key')).toEqual(4);
+          done();
+        });
+
+        it('Transform data if set "boolean"', (done) => {
+          vm.$storage.setOptions({
+            replacer: (_key: string, value: any) => !value,
+          });
+          vm.$storage.set('key', true);
+          expect(vm.$storage.get('key')).toEqual(false);
+          done();
+        });
+      });
+    });
   });
 });
