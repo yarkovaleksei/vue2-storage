@@ -3,6 +3,8 @@ import MemoryStorage from './MemoryStorage';
 import { SetterOptions, StorageDriver, StorageOptions } from './types';
 import { StorageError } from './storage-error';
 
+const availableDrivers = ['local', 'session', 'memory'];
+
 export default class Vue2Storage {
   private options: StorageOptions;
 
@@ -44,6 +46,9 @@ export default class Vue2Storage {
       driver: StorageDriver.LOCAL,
       ttl: 0, // Infinity
     };
+
+    this.checkConfig(config);
+
     const options = objectAssign(defaultOptions, config);
     this.options = Object.freeze(options);
   }
@@ -141,6 +146,32 @@ export default class Vue2Storage {
     return Object.keys(this.driver.storage);
   }
 
+  private checkConfig (config: StorageOptions): void {
+    if (config.prefix !== undefined) {
+      if (typeof config.prefix !== 'string') {
+        this.throwError(new TypeError('Option "prefix" must be a string'));
+      }
+    }
+
+    if (config.driver !== undefined) {
+      if (!availableDrivers.includes(config.driver)) {
+        this.throwError(new TypeError(`Option "driver" must be one of ${availableDrivers.join(', ')}`));
+      }
+    }
+
+    if (config.ttl !== undefined) {
+      if (typeof config.ttl !== 'number') {
+        this.throwError(new TypeError('Option "ttl" must be a number'));
+      }
+    }
+
+    if (config.replacer !== undefined) {
+      if (typeof config.replacer !== 'function') {
+        this.throwError(new TypeError('Option "replacer" must be a function'));
+      }
+    }
+  }
+
   private addPrefix (key: string): string {
     return `${this.options.prefix || ''}${key}`;
   }
@@ -153,10 +184,17 @@ export default class Vue2Storage {
 
   private toJSON (data: any, options: SetterOptions = {}): string {
     const ttl = ('ttl' in options) ? options.ttl : this.options.ttl;
+    const { replacer } = this.options;
 
     return JSON.stringify({
       value: data,
       ttl: ttl > 0 ? ttl + Date.now() : 0,
+    },                    (key: string, value: any): string => {
+      if (!replacer || key !== 'value') {
+        return value;
+      }
+
+      return replacer(key, value);
     });
   }
 

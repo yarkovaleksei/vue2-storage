@@ -4,6 +4,7 @@ export interface StorageOptions {
   prefix?: string
   driver?: StorageDriver
   ttl?: number
+  replacer?: <V extends any, R extends any>(key: string, value: V) => R
 }
 
 export interface SetterOptions {
