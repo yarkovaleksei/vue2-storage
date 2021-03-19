@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   rootDir: path.resolve(__dirname),
@@ -10,12 +10,12 @@ module.exports = {
   moduleDirectories: ['node_modules'],
   setupFiles: ['<rootDir>/test/setup.ts'],
   transform: {
-    '.+\\.ts$': '<rootDir>/node_modules/ts-jest'
+    '.+\\.ts$': '<rootDir>/node_modules/ts-jest',
   },
-  testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|js)$',
+  testRegex: '\\.spec\\.ts$',
   globals: {
     'ts-jest': {
-      tsConfig: 'tsconfig.json'
-    }
-  }
-}
+      tsConfig: 'tsconfig.json',
+    },
+  },
+};

@@ -24,5 +24,11 @@
     "*.ts",
     "src/**/*"
   ],
-  "exclude": ["dist", "docs", "config", "**/*.{js,json}"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "docs",
+    "config",
+    "**/*.{js,json}"
+  ]
 }

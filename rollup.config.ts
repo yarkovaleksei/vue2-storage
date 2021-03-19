@@ -1,7 +1,7 @@
-import typescript from 'rollup-plugin-typescript';
-import tslint from 'rollup-plugin-tslint';
-import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
+import replace from 'rollup-plugin-replace';
+import { eslint } from 'rollup-plugin-eslint';
+import typescript from 'rollup-plugin-typescript';
 import commonjs from 'rollup-plugin-commonjs';
 import copy from 'rollup-plugin-copy';
 import uglify from 'rollup-plugin-uglify-es';
@@ -21,7 +21,6 @@ const moduleName = classify(pack.name);
 
 const plugins = [
   resolve(),
-  commonjs(),
   replace({
     'process.env.NODE_ENV': JSON.stringify(
       process.env.NODE_ENV || 'production'
@@ -29,14 +28,15 @@ const plugins = [
     '__NAME__': pack.name,
     '__VERSION__': pack.version,
   }),
+  eslint({
+    throwOnError: true,
+  }),
+  typescript(),
+  commonjs(),
   copy({
     targets: {
       'src/types.ts': `dist/${pack.name}.d.ts`,
     },
-  }),
-  typescript(),
-  tslint({
-    throwOnError: true,
   }),
 ];
 
@@ -48,9 +48,6 @@ export default [
       file: `dist/${pack.name}.common.js`,
       format: 'cjs',
       banner,
-      globals: {
-        'object-assign': 'objectAssign',
-      },
     },
   },
   {
@@ -60,9 +57,6 @@ export default [
       file: `dist/${pack.name}.esm.js`,
       format: 'es',
       banner,
-      globals: {
-        'object-assign': 'objectAssign',
-      },
     },
   },
   {
@@ -72,9 +66,6 @@ export default [
       file: `dist/${pack.name}.min.js`,
       format: 'umd',
       banner,
-      globals: {
-        'object-assign': 'objectAssign',
-      },
       name: moduleName,
     },
   },
@@ -85,9 +76,6 @@ export default [
       file: `dist/${pack.name}.js`,
       format: 'umd',
       banner,
-      globals: {
-        'object-assign': 'objectAssign',
-      },
       name: moduleName,
     },
   },
