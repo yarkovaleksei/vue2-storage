@@ -1,4 +1,3 @@
-import objectAssign from 'object-assign';
 import MemoryStorage from './MemoryStorage';
 import { SetterOptions, StorageDriver, StorageOptions } from './types';
 import { StorageError } from './storage-error';
@@ -30,27 +29,25 @@ export default class Vue2Storage {
 
   private get driver (): typeof window.localStorage | typeof window.sessionStorage | typeof MemoryStorage {
     switch (this.options.driver) {
-      case StorageDriver.LOCAL:
-      default:
-        return (typeof window !== 'undefined') ? window.localStorage : MemoryStorage;
-      case StorageDriver.SESSION:
-        return (typeof window !== 'undefined') ? window.sessionStorage : MemoryStorage;
-      case StorageDriver.MEMORY:
-        return MemoryStorage;
+    case StorageDriver.LOCAL:
+    default:
+      return (typeof window !== 'undefined') ? window.localStorage : MemoryStorage;
+    case StorageDriver.SESSION:
+      return (typeof window !== 'undefined') ? window.sessionStorage : MemoryStorage;
+    case StorageDriver.MEMORY:
+      return MemoryStorage;
     }
   }
 
   setOptions (config: StorageOptions = {}): void {
-    const defaultOptions: StorageOptions = {
-      prefix: 'app_',
-      driver: StorageDriver.LOCAL,
-      ttl: 0, // Infinity
-    };
-
     this.checkConfig(config);
 
-    const options = objectAssign(defaultOptions, config);
-    this.options = Object.freeze(options);
+    this.options = Object.freeze({
+      prefix: config.prefix || 'app_',
+      driver: config.driver || StorageDriver.LOCAL,
+      ttl: config.ttl || 0,
+      replacer: config.replacer || undefined,
+    });
   }
 
   get (key: string, fallback: any = null) {
@@ -107,7 +104,7 @@ export default class Vue2Storage {
     }
   }
 
-  clear (force: boolean = false): void {
+  clear (force = false): void {
     try {
       if (force) {
         this.driver.clear();

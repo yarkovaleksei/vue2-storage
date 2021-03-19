@@ -1,7 +1,6 @@
 import 'jest-localstorage-mock';
+import Vue from 'vue';
 import { StorageDriver } from './types';
-
-const Vue = require('vue');
 
 const drivers = [
   {name: 'Local', value: StorageDriver.LOCAL},
@@ -11,7 +10,7 @@ const drivers = [
 
 drivers.forEach((driver) => {
   describe(`${driver.name} Storage`, () => {
-    let vm;
+    let vm: Vue;
 
     beforeEach(() => {
       vm = new Vue();
@@ -25,7 +24,7 @@ drivers.forEach((driver) => {
     describe('Prefix', () => {
       it('Accept prefix', (done) => {
         const prefix = vm.$storage.prefix;
-        expect(prefix === 'app_').toEqual(true);
+        expect(prefix).toEqual('app_');
         done();
       });
     });
@@ -39,7 +38,7 @@ drivers.forEach((driver) => {
         const data = { a: 1 };
         vm.$storage.set('test', data);
         const item = vm.$storage.get('test');
-        expect(item.a && item.a === 1).toEqual(true);
+        expect(item.a).toEqual(1);
         done();
       });
 
@@ -47,7 +46,8 @@ drivers.forEach((driver) => {
         const data = [1, 2];
         vm.$storage.set('test', data);
         const item = vm.$storage.get('test');
-        expect(Array.isArray(item) && item.length === 2).toEqual(true);
+        expect(Array.isArray(item)).toEqual(true);
+        expect(item.length).toEqual(2);
         done();
       });
 
@@ -71,7 +71,7 @@ drivers.forEach((driver) => {
         const data = true;
         vm.$storage.set('test', data);
         const item = vm.$storage.get('test');
-        expect(item === true).toEqual(true);
+        expect(item).toEqual(true);
         done();
       });
 
@@ -79,7 +79,7 @@ drivers.forEach((driver) => {
         const data = false;
         vm.$storage.set('test', data);
         const item = vm.$storage.get('test');
-        expect(item === false).toEqual(true);
+        expect(item).toEqual(false);
         done();
       });
     });
@@ -91,7 +91,7 @@ drivers.forEach((driver) => {
 
         await new Promise((resolve) => setTimeout(resolve, 4000));
 
-        expect(vm.$storage.get('test') === null).toEqual(true);
+        expect(vm.$storage.get('test')).toEqual(null);
         done();
       });
     });
@@ -99,7 +99,7 @@ drivers.forEach((driver) => {
     describe('Get item with default value', () => {
       it('Get item', (done) => {
         const value = vm.$storage.get('fallback', 'fallback');
-        expect(value === 'fallback').toEqual(true);
+        expect(value).toEqual('fallback');
         done();
       });
     });
@@ -110,7 +110,7 @@ drivers.forEach((driver) => {
         vm.$storage.set('test', data);
         vm.$storage.remove('test');
         const item = vm.$storage.get('test');
-        expect(item === null).toEqual(true);
+        expect(item).toEqual(null);
         done();
       });
     });
@@ -129,7 +129,7 @@ drivers.forEach((driver) => {
         vm.$storage.set('test', 'test');
         const value = vm.$storage.key(0);
         const test = vm.$storage.get('test');
-        expect(value === test).toEqual(true);
+        expect(value).toEqual(test);
         done();
       });
     });
@@ -139,7 +139,7 @@ drivers.forEach((driver) => {
         vm.$storage.set('test1', 'test1');
         vm.$storage.set('test2', 'test2');
         const keys = vm.$storage.keys();
-        expect(Array.isArray(keys) && keys.length === 2).toEqual(true);
+        expect(Array.isArray(keys) && keys.length).toEqual(2);
         done();
       });
     });
@@ -149,7 +149,7 @@ drivers.forEach((driver) => {
         vm.$storage.set('test1', 'test1');
         vm.$storage.set('test2', 'test2');
         const length = vm.$storage.length;
-        expect(length === 2).toEqual(true);
+        expect(length).toEqual(2);
         done();
       });
     });
@@ -160,9 +160,9 @@ drivers.forEach((driver) => {
         vm.$storage.set('test1', [1, 2]);
         vm.$storage.set('test2', 2);
         vm.$storage.clear();
-        expect(vm.$storage.get('test') === null).toEqual(true);
-        expect(vm.$storage.get('test1') === null).toEqual(true);
-        expect(vm.$storage.get('test2') === null).toEqual(true);
+        expect(vm.$storage.get('test')).toEqual(null);
+        expect(vm.$storage.get('test1')).toEqual(null);
+        expect(vm.$storage.get('test2')).toEqual(null);
         done();
       });
     });
@@ -172,8 +172,8 @@ drivers.forEach((driver) => {
         const returned = await vm.$storage.remember('test', async () => {
           return 'success';
         });
-        expect(vm.$storage.get('test') === 'success').toEqual(true);
-        expect(returned === 'success').toEqual(true);
+        expect(vm.$storage.get('test')).toEqual('success');
+        expect(returned).toEqual('success');
         done();
       });
     });
@@ -182,14 +182,14 @@ drivers.forEach((driver) => {
       it('Retrieve item and make sure it gets removed', (done) => {
         vm.$storage.set('test', 'test');
         const returned = vm.$storage.pull('test');
-        expect(returned === 'test').toEqual(true);
-        expect(vm.$storage.get('test', null) === null).toEqual(true);
+        expect(returned).toEqual('test');
+        expect(vm.$storage.get('test', null)).toEqual(null);
         done();
       });
 
       it('Try to fetch inexistent item and check fallback', (done) => {
         const returned = vm.$storage.pull('nonexistent', 'fallback');
-        expect(returned === 'fallback').toEqual(true);
+        expect(returned).toEqual('fallback');
         done();
       });
     });
@@ -201,8 +201,8 @@ drivers.forEach((driver) => {
             throw new Error('Remember error');
           });
         } catch (error) {
-          expect(error.name === 'StorageError').toEqual(true);
-          expect(error.message === '__NAME__[__VERSION__]: Remember error').toEqual(true);
+          expect(error.name).toEqual('StorageError');
+          expect(error.message).toEqual('__NAME__[__VERSION__]: Remember error');
         }
         done();
       });
@@ -231,7 +231,7 @@ drivers.forEach((driver) => {
 
         it('Transform data if set "array"', (done) => {
           vm.$storage.setOptions({
-            replacer: (_key: string, value: any) => value.map((v) => v + 1),
+            replacer: (_key: string, value: number[]): number[] => value.map((v: number) => v + 1),
           });
           vm.$storage.set('key', [1, 2, 3]);
           expect(vm.$storage.get('key')).toEqual([2, 3, 4]);
@@ -240,7 +240,7 @@ drivers.forEach((driver) => {
 
         it('Transform data if set "string"', (done) => {
           vm.$storage.setOptions({
-            replacer: (_key: string, value: any) => String(value).repeat(2),
+            replacer: (_key: string, value: string) => String(value).repeat(2),
           });
           vm.$storage.set('key', 'repeat');
           expect(vm.$storage.get('key')).toEqual('repeatrepeat');
@@ -249,7 +249,7 @@ drivers.forEach((driver) => {
 
         it('Transform data if set "number"', (done) => {
           vm.$storage.setOptions({
-            replacer: (_key: string, value: any) => value * 2,
+            replacer: (_key: string, value: number) => value * 2,
           });
           vm.$storage.set('key', 2);
           expect(vm.$storage.get('key')).toEqual(4);
@@ -258,7 +258,7 @@ drivers.forEach((driver) => {
 
         it('Transform data if set "boolean"', (done) => {
           vm.$storage.setOptions({
-            replacer: (_key: string, value: any) => !value,
+            replacer: (_key: string, value: boolean) => !value,
           });
           vm.$storage.set('key', true);
           expect(vm.$storage.get('key')).toEqual(false);
