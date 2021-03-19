@@ -24,31 +24,31 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
-      uses: borales/actions-yarn@v2.0.0
+      uses: borales/actions-yarn@v2.0.2
       with:
         cmd: install
 
     - name: Code lint
-      uses: borales/actions-yarn@v2.0.0
+      uses: borales/actions-yarn@v2.0.2
       with:
         cmd: lint
 
     - name: Unit tests
-      uses: borales/actions-yarn@v2.0.0
+      uses: borales/actions-yarn@v2.0.2
       with:
         cmd: test
 
     - name: Build project
-      uses: borales/actions-yarn@v2.0.0
+      uses: borales/actions-yarn@v2.0.2
       with:
         cmd: build
 
     - name: Install gitbook dependencies
-      uses: borales/actions-yarn@v2.0.0
+      uses: borales/actions-yarn@v2.0.2
       with:
         cmd: docs:install
 
     - name: Build docs
-      uses: borales/actions-yarn@v2.0.0
+      uses: borales/actions-yarn@v2.0.2
       with:
         cmd: docs:build
