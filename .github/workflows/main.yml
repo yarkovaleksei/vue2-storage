@@ -2,53 +2,51 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - master
   pull_request:
-    branches: [ master ]
+    branches:
+      - master
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [13.x]
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Git checkout
-      uses: actions/checkout@v2
+      - name: Setup Node.js v13
+        uses: actions/setup-node@v2
+        with:
+          node-version: '13.x'
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: install
 
-    - name: Install dependencies
-      uses: borales/actions-yarn@v2.0.2
-      with:
-        cmd: install
+      - name: Code lint
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: lint
 
-    - name: Code lint
-      uses: borales/actions-yarn@v2.0.2
-      with:
-        cmd: lint
+      - name: Unit tests
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: test
 
-    - name: Unit tests
-      uses: borales/actions-yarn@v2.0.2
-      with:
-        cmd: test
+      - name: Build project
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: build
 
-    - name: Build project
-      uses: borales/actions-yarn@v2.0.2
-      with:
-        cmd: build
+      - name: Install gitbook dependencies
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: docs:install
 
-    - name: Install gitbook dependencies
-      uses: borales/actions-yarn@v2.0.2
-      with:
-        cmd: docs:install
-
-    - name: Build docs
-      uses: borales/actions-yarn@v2.0.2
-      with:
-        cmd: docs:build
+      - name: Build docs
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: docs:build
