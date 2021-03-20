@@ -1,5 +1,5 @@
 /*!
- * vue2-storage v6.0.0 
+ * vue2-storage v6.0.3 
  * (c) 2021 Yarkov Aleksey
  * Released under the MIT License.
  */
@@ -98,7 +98,7 @@
             return 'vue2-storage';
         }
         get version() {
-            return '6.0.0';
+            return '6.0.3';
         }
         get driver() {
             switch (this.options.driver) {
@@ -186,6 +186,7 @@
             }
         }
         has(key) {
+            this.removeExpiredValuesByKeys([this.addPrefix(key)]);
             if (this.options.driver !== StorageDriver.MEMORY) {
                 return (this.addPrefix(key) in this.driver);
             }
@@ -201,10 +202,18 @@
             }
         }
         keys() {
-            if (this.options.driver !== StorageDriver.MEMORY) {
-                return Object.keys(this.driver);
+            let keys = [];
+            switch (this.options.driver) {
+                case StorageDriver.MEMORY:
+                    keys = Object.keys(this.driver.storage);
+                    break;
+                default:
+                    keys = Object.keys(this.driver);
+                    break;
             }
-            return Object.keys(this.driver.storage);
+            return keys.filter(key => {
+                return this.fromJSON(key) !== null;
+            });
         }
         checkConfig(config) {
             if (config.prefix !== undefined) {
@@ -229,7 +238,7 @@
             }
         }
         addPrefix(key) {
-            return `${this.options.prefix || ''}${key}`;
+            return `${this.options.prefix || ''}${this.removePrefix(key)}`;
         }
         removePrefix(key) {
             const re = new RegExp(`^${this.options.prefix || ''}`);
@@ -250,20 +259,33 @@
         }
         fromJSON(key) {
             try {
+                this.removeExpiredValuesByKeys([key]);
                 const data = JSON.parse(this.driver.getItem(key));
                 if (data !== null) {
-                    if (('ttl' in data)
-                        && Number(data.ttl) > 0
-                        && Number(data.ttl) < Date.now()) {
-                        this.remove(this.removePrefix(key));
-                        return null;
-                    }
                     if ('value' in data) {
                         return data.value;
                     }
                     return data;
                 }
                 return null;
+            }
+            catch (e) {
+                return null;
+            }
+        }
+        removeExpiredValuesByKeys(keys) {
+            try {
+                keys.forEach(key => {
+                    const data = JSON.parse(this.driver.getItem(key));
+                    if (data === null) {
+                        return;
+                    }
+                    if (('ttl' in data)
+                        && Number(data.ttl) > 0
+                        && Number(data.ttl) < Date.now()) {
+                        this.remove(this.removePrefix(key));
+                    }
+                });
             }
             catch (e) {
                 return null;
