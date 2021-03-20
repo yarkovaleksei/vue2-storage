@@ -123,9 +123,24 @@ _В случае неудачи метод выбросит исключение
 Пример:
 
 ```javascript
+// JavaScript
 export default {
   async created () {
     const data = await this.$storage.remember('test', async () => {
+        // Делаем HTTP-запросы или другие асинхронные вещи
+        return 'value'
+    })
+    console.log(data) // выведет "value"
+  }
+}
+```
+
+```typescript
+// TypeScript
+export default {
+  async created () {
+    // Можно указать тип ожидаемых данных
+    const data = await this.$storage.remember<string>('test', async () => {
         // Делаем HTTP-запросы или другие асинхронные вещи
         return 'value'
     })
