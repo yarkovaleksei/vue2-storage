@@ -1,5 +1,5 @@
 /*!
- * vue2-storage v5.1.0 
+ * vue2-storage v6.0.0 
  * (c) 2021 Yarkov Aleksey
  * Released under the MIT License.
  */
@@ -26,95 +26,6 @@ function __awaiter(thisArg, _arguments, P, generator) {
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 }
-
-/*
-object-assign
-(c) Sindre Sorhus
-@license MIT
-*/
-/* eslint-disable no-unused-vars */
-var getOwnPropertySymbols = Object.getOwnPropertySymbols;
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
-
-	return Object(val);
-}
-
-function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
-
-		// Detect buggy property enumeration order in older V8 versions.
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
-
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !==
-				'abcdefghijklmnopqrst') {
-			return false;
-		}
-
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
-}
-
-var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
 
 const storage = {};
 class MemoryStorage {
@@ -181,7 +92,7 @@ class Vue2Storage {
         return 'vue2-storage';
     }
     get version() {
-        return '5.1.0';
+        return '6.0.0';
     }
     get driver() {
         switch (this.options.driver) {
@@ -195,14 +106,13 @@ class Vue2Storage {
         }
     }
     setOptions(config = {}) {
-        const defaultOptions = {
-            prefix: 'app_',
-            driver: StorageDriver.LOCAL,
-            ttl: 0,
-        };
         this.checkConfig(config);
-        const options = objectAssign(defaultOptions, config);
-        this.options = Object.freeze(options);
+        this.options = Object.freeze({
+            prefix: config.prefix || 'app_',
+            driver: config.driver || StorageDriver.LOCAL,
+            ttl: config.ttl || 0,
+            replacer: config.replacer || undefined,
+        });
     }
     get(key, fallback = null) {
         try {
@@ -358,7 +268,7 @@ class Vue2Storage {
     }
 }
 
-class Vue2Storage$1 {
+class Plugin {
     static install(Vue, options) {
         const storage = new Vue2Storage(options);
         Vue.$storage = storage;
@@ -366,9 +276,9 @@ class Vue2Storage$1 {
     }
 }
 if (typeof window !== 'undefined') {
-    // tslint:disable-next-line
-    window['Vue2Storage'] = Vue2Storage$1;
+    window['Vue2StoragePlugin'] = Plugin;
+    window['Vue2Storage'] = Vue2Storage;
 }
 
-export default Vue2Storage$1;
-export { Vue2Storage$1 as Vue2Storage };
+export default Vue2Storage;
+export { Plugin };

@@ -12,32 +12,46 @@ https://unpkg.com/vue2-storage/dist/vue2-storage
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue2-storage/dist/vue2-storage.js"></script>
 <script>
-  window.Vue.use(window.Vue2Storage)
+  window.Vue.use(window.Vue2StoragePlugin)
 </script>
 ```
 
 ### NPM
 
-    $ npm install vue2-storage
+```bash
+$ npm install vue2-storage
+```
+
+Если планируете [использовать пакет без Vue](vanilla.md), то надо добавить флаг `--no-optional`:
+```bash
+$ npm install --no-optional vue2-storage
+```
 
 ### Yarn
 
-    $ yarn add vue2-storage
+```bash
+$ yarn add vue2-storage
+```
+
+Если планируете [использовать пакет без Vue](vanilla.md), то надо добавить флаг `--ignore-optional`:
+```bash
+$ yarn add --ignore-optional vue2-storage
+```
 
 При использовании с модульной системой вы должны явно установить `vue2-storage` через` Vue.use()`:
 
 ```javascript
-import Vue from 'vue'
-import {Vue2Storage} from 'vue2-storage'
+import Vue from 'vue';
+import { Plugin } from 'vue2-storage';
 
-Vue.use(Vue2Storage)
+Vue.use(Plugin);
 // Можно заодно передать опции
-Vue.use(Vue2Storage, {
+Vue.use(Plugin, {
   prefix: 'app_',
   driver: 'local',
   ttl: 60 * 60 * 24 * 1000, // 24 часа
   replacer: (key, value) => value
-})
+});
 ```
 
 Вам не нужно делать это при подключении скриптов глобально.
@@ -47,7 +61,9 @@ Vue.use(Vue2Storage, {
 Вам нужно будет клонировать непосредственно из GitHub и самостоятельно собирать `vue2-storage`, если
 вы хотите использовать последнюю `dev` версию.
 
-    $ git clone https://github.com/yarkovaleksei/vue2-storage.git node_modules/vue2-storage
-    $ cd node_modules/vue2-storage
-    $ yarn
-    $ yarn build
+```bash
+$ git clone https://github.com/yarkovaleksei/vue2-storage.git node_modules/vue2-storage
+$ cd node_modules/vue2-storage
+$ yarn
+$ yarn build
+```

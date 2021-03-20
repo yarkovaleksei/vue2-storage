@@ -4,7 +4,7 @@ export interface StorageOptions {
   prefix?: string
   driver?: StorageDriver
   ttl?: number
-  replacer?: <V extends any, R extends any>(key: string, value: V) => R
+  replacer?: (key: string, value: any) => any
 }
 
 export interface SetterOptions {
@@ -17,8 +17,11 @@ export enum StorageDriver {
   MEMORY  = 'memory',
 }
 
-export declare class Vue2Storage {
+export declare class Plugin {
   static install: PluginFunction<StorageOptions>;
+}
+
+export declare class Vue2Storage {
   readonly length: number;
   readonly prefix: string;
   setOptions (config: StorageOptions): void;

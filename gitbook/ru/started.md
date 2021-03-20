@@ -9,11 +9,11 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue2-storage/dist/vue2-storage.js"></script>
 
-<div id="#app"></div>
+<div id="app"></div>
 
 <script>
   // Вы можете указать конфигурацию плагина при подключении, передав в Vue.use вторым аргументом объект с настройками
-  window.Vue.use(window.Vue2Storage, {
+  window.Vue.use(window.Vue2StoragePlugin, {
     prefix: 'app_',
     driver: 'local',
     ttl: 60 * 60 * 24 * 1000, // 24 часа
@@ -30,7 +30,7 @@
         driver: 'local',
         ttl: 60 * 60 * 24 * 1000, // 24 часа
         replacer: (key, value) => value
-      })
+      });
     }
   }).$mount('#app')
 </script>
@@ -38,18 +38,22 @@
 
 ### JavaScript
 
+```html
+<div id="app"></div>
+```
+
 ```javascript
-// Если вы используете модульную систему (например via vue-cli), то импортируйте Vue и Vue2Storage и подключите плагин через` Vue.use(Vue2Storage)`
-import Vue from 'vue'
-import {Vue2Storage} from 'vue2-storage'
+// Если вы используете модульную систему (например via vue-cli), то импортируйте Vue и плагин Vue2Storage и подключите плагин через` Vue.use(Vue2Storage)`
+import Vue from 'vue';
+import { Plugin } from 'vue2-storage';
 
 // Вы можете указать конфигурацию плагина при подключении, передав в Vue.use вторым аргументом объект с настройками
-Vue.use(Vue2Storage, {
+Vue.use(Plugin, {
   prefix: 'app_',
   driver: 'local',
   ttl: 60 * 60 * 24 * 1000, // 24 часа
   replacer: (key, value) => value
-})
+});
 
 // Приложение запустилось!
 new Vue({
@@ -62,11 +66,7 @@ new Vue({
       driver: 'local',
       ttl: 60 * 60 * 24 * 1000, // 24 часа
       replacer: (key, value) => value
-    })
+    });
   }
-}).$mount('#app')
-```
-
-```html
-<div id="#app"></div>
+}).$mount('#app');
 ```

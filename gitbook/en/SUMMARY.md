@@ -3,6 +3,7 @@
 > Browser storage for Vue.js app
 
 - [Installation](installation.md)
+- [Using without Vue](vanilla.md)
 - [Getting Started](started.md)
 - [Options](options.md)
 - [API](api.md)

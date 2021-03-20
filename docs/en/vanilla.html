@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Installation · GitBook</title>
+        <title>Using without Vue · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -61,10 +61,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="vanilla.html" />
+    <link rel="next" href="started.html" />
     
     
-    <link rel="prev" href="./" />
+    <link rel="prev" href="installation.html" />
     
 
     </head>
@@ -106,7 +106,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.2" data-path="installation.html">
+        <li class="chapter " data-level="1.2" data-path="installation.html">
             
                 <a href="installation.html">
             
@@ -119,7 +119,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="vanilla.html">
+        <li class="chapter active" data-level="1.3" data-path="vanilla.html">
             
                 <a href="vanilla.html">
             
@@ -401,7 +401,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >Installation</a>
+        <a href="." >Using without Vue</a>
     </h1>
 </div>
 
@@ -416,50 +416,64 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="installation">Installation</h1>
-<h3 id="direct-download--cdn">Direct Download / CDN</h3>
-<p><a href="https://unpkg.com/vue2-storage/dist/vue2-storage" target="_blank">https://unpkg.com/vue2-storage/dist/vue2-storage</a></p>
-<p><a href="https://unpkg.com" target="_blank">unpkg.com</a> provides NPM-based CDN links. The above link will always point to the latest release on NPM. You can also use a specific version/tag via URLs like <a href="https://unpkg.com/vue2-storage@6.0.0/dist/vue2-storage.js" target="_blank">https://unpkg.com/vue2-storage@6.0.0/dist/vue2-storage.js</a></p>
-<p>Include vue2-storage after Vue and use according to the documentation:</p>
-<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/vue/dist/vue.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/vue2-storage/dist/vue2-storage.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+                                <h1 id="using-without-vue">Using without Vue</h1>
+<blockquote>
+<p>We will be using <a href="https://github.com/lukehoban/es6features" target="_blank">ES2015</a> in the code samples in the guide.</p>
+</blockquote>
+<h3 id="html">HTML</h3>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/vue2-storage/dist/vue2-storage.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-  <span class="hljs-built_in">window</span>.Vue.use(<span class="hljs-built_in">window</span>.Vue2StoragePlugin)
+  <span class="hljs-comment">// You can specify the storage configuration when instantiating the class</span>
+  <span class="hljs-keyword">const</span> storage = <span class="hljs-built_in">window</span>.Vue2Storage({
+    prefix: <span class="hljs-string">&apos;app_&apos;</span>,
+    driver: <span class="hljs-string">&apos;local&apos;</span>,
+    ttl: <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span> * <span class="hljs-number">1000</span>, <span class="hljs-comment">// 24 &#x447;&#x430;&#x441;&#x430;</span>
+    replacer: (key, value) =&gt; value
+  });
+
+  storage.set(<span class="hljs-string">&apos;key&apos;</span>, <span class="hljs-string">&apos;value&apos;</span>);
+  <span class="hljs-built_in">console</span>.log(storage.get(<span class="hljs-string">&apos;key&apos;</span>)); <span class="hljs-comment">// value</span>
+
+  <span class="hljs-comment">// The configuration of the storage can be changed at any time.</span>
+  <span class="hljs-comment">// Just call the setOptions method and pass the object with the settings to it.</span>
+  storage.setOptions({
+    prefix: <span class="hljs-string">&apos;app_&apos;</span>,
+    driver: <span class="hljs-string">&apos;local&apos;</span>,
+    ttl: <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span> * <span class="hljs-number">1000</span>, <span class="hljs-comment">// 24 &#x447;&#x430;&#x441;&#x430;</span>
+    replacer: (key, value) =&gt; value.repeat(<span class="hljs-number">2</span>)
+  });
+
+  storage.set(<span class="hljs-string">&apos;key&apos;</span>, <span class="hljs-string">&apos;value&apos;</span>);
+  <span class="hljs-built_in">console</span>.log(storage.get(<span class="hljs-string">&apos;key&apos;</span>)); <span class="hljs-comment">// valuevalue</span>
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
-<h3 id="npm">NPM</h3>
-<pre><code class="lang-bash">$ npm install vue2-storage
-</code></pre>
-<p>If you plan to <a href="vanilla.html">use the package without Vue</a>, then you need to add the flag <code>--no-optional</code>:</p>
-<pre><code class="lang-bash">$ npm install --no-optional vue2-storage
-</code></pre>
-<h3 id="yarn">Yarn</h3>
-<pre><code class="lang-bash">$ yarn add vue2-storage
-</code></pre>
-<p>If you plan to <a href="vanilla.html">use the package without Vue</a>, then you need to add the flag <code>--ignore-optional</code>:</p>
-<pre><code class="lang-bash">$ yarn add --ignore-optional vue2-storage
-</code></pre>
-<p>When used with a module system, you must explicitly install the <code>vue2-storage</code> via <code>Vue.use()</code>:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;vue&apos;</span>;
-<span class="hljs-keyword">import</span> { Plugin } <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;vue2-storage&apos;</span>;
+<h3 id="javascript">JavaScript</h3>
+<pre><code class="lang-javascript"><span class="hljs-comment">// If you are using a modular system then import the Vue2Storage class</span>
+<span class="hljs-keyword">import</span> Vue2Storage <span class="hljs-keyword">from</span> <span class="hljs-string">&apos;vue2-storage&apos;</span>;
 
-Vue.use(Plugin);
-<span class="hljs-comment">// You can pass options</span>
-Vue.use(Plugin, {
+<span class="hljs-comment">// You can specify the storage configuration when instantiating the class</span>
+<span class="hljs-keyword">const</span> storage = Vue2Storage({
   prefix: <span class="hljs-string">&apos;app_&apos;</span>,
   driver: <span class="hljs-string">&apos;local&apos;</span>,
-  ttl: <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span> * <span class="hljs-number">1000</span>, <span class="hljs-comment">// 24 hours</span>
+  ttl: <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span> * <span class="hljs-number">1000</span>, <span class="hljs-comment">// 24 &#x447;&#x430;&#x441;&#x430;</span>
   replacer: (key, value) =&gt; value
 });
-</code></pre>
-<p>You don&apos;t need to do this when using global script tags.</p>
-<h3 id="dev-build">Dev Build</h3>
-<p>You will have to clone directly from GitHub and build <code>vue2-storage</code> yourself if
-you want to use the latest dev build.</p>
-<pre><code class="lang-bash">$ git <span class="hljs-built_in">clone</span> https://github.com/yarkovaleksei/vue2-storage.git node_modules/vue2-storage
-$ <span class="hljs-built_in">cd</span> node_modules/vue2-storage
-$ yarn
-$ yarn build
+
+storage.set(<span class="hljs-string">&apos;key&apos;</span>, <span class="hljs-string">&apos;value&apos;</span>);
+<span class="hljs-built_in">console</span>.log(storage.get(<span class="hljs-string">&apos;key&apos;</span>)); <span class="hljs-comment">// value</span>
+
+<span class="hljs-comment">// The configuration of the storage can be changed at any time.</span>
+<span class="hljs-comment">// Just call the setOptions method and pass the object with the settings to it.</span>
+storage.setOptions({
+  prefix: <span class="hljs-string">&apos;app_&apos;</span>,
+  driver: <span class="hljs-string">&apos;local&apos;</span>,
+  ttl: <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">24</span> * <span class="hljs-number">1000</span>, <span class="hljs-comment">// 24 &#x447;&#x430;&#x441;&#x430;</span>
+  replacer: (key, value) =&gt; value.repeat(<span class="hljs-number">2</span>)
+});
+
+storage.set(<span class="hljs-string">&apos;key&apos;</span>, <span class="hljs-string">&apos;value&apos;</span>);
+<span class="hljs-built_in">console</span>.log(storage.get(<span class="hljs-string">&apos;key&apos;</span>)); <span class="hljs-comment">// valuevalue</span>
 </code></pre>
 
                                 
@@ -488,12 +502,12 @@ $ yarn build
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Introduction">
+                <a href="installation.html" class="navigation navigation-prev " aria-label="Previous page: Installation">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="vanilla.html" class="navigation navigation-next " aria-label="Next page: Using without Vue">
+                <a href="started.html" class="navigation navigation-next " aria-label="Next page: Getting Started">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -504,7 +518,7 @@ $ yarn build
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Installation","level":"1.2","depth":1,"next":{"title":"Using without Vue","level":"1.3","depth":1,"path":"vanilla.md","ref":"vanilla.md","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git","github"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/yarkovaleksei/vue2-storage/"},"livereload":{},"search":{},"theme-vuejs":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/yarkovaleksei/vue2-storage/tree/master/gitbook"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"packageName":"vue2-storage","packageVersion":"6.0.0"},"language":"en","links":{"sharing":{"facebook":true,"twitter":true}},"gitbook":"*"},"file":{"path":"installation.md","mtime":"2021-03-20T12:17:12.570Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-20T12:19:06.224Z"},"basePath":".","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"Using without Vue","level":"1.3","depth":1,"next":{"title":"Getting Started","level":"1.4","depth":1,"path":"started.md","ref":"started.md","articles":[]},"previous":{"title":"Installation","level":"1.2","depth":1,"path":"installation.md","ref":"installation.md","articles":[]},"dir":"ltr"},"config":{"plugins":["edit-link","theme-vuejs@git+https://github.com/pearofducks/gitbook-plugin-theme-vuejs.git","github"],"root":"./","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"github":{"url":"https://github.com/yarkovaleksei/vue2-storage/"},"livereload":{},"search":{},"theme-vuejs":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"label":"Edit This Page","base":"https://github.com/yarkovaleksei/vue2-storage/tree/master/gitbook"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"packageName":"vue2-storage","packageVersion":"6.0.0"},"language":"en","links":{"sharing":{"facebook":true,"twitter":true}},"gitbook":"*"},"file":{"path":"vanilla.md","mtime":"2021-03-20T12:07:38.604Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-03-20T12:19:06.224Z"},"basePath":".","book":{"language":"en"}});
         });
     </script>
 </div>

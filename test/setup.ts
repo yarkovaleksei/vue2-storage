@@ -1,6 +1,6 @@
 import 'jest-localstorage-mock';
 import Vue from 'vue';
-import plugin from '../src/index';
+import { Plugin } from '../src';
 
 Vue.config.productionTip = false;
-Vue.use(plugin);
+Vue.use(Plugin);
