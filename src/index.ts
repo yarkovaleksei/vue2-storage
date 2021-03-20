@@ -1,17 +1,18 @@
 import vue from 'vue';
-import Plugin from './storage';
+import Vue2Storage from './storage';
 import { StorageOptions } from './types';
 
-export class Vue2Storage {
+export class Plugin {
   static install (Vue: typeof vue, options: StorageOptions): void {
-    const storage = new Plugin(options);
+    const storage = new Vue2Storage(options);
     Vue.$storage = storage;
     Vue.prototype.$storage = storage;
   }
 }
 
-export default Vue2Storage;
-
 if (typeof window !== 'undefined') {
+  window['Vue2StoragePlugin'] = Plugin;
   window['Vue2Storage'] = Vue2Storage;
 }
+
+export default Vue2Storage;

@@ -17,8 +17,11 @@ export enum StorageDriver {
   MEMORY  = 'memory',
 }
 
-export declare class Vue2Storage {
+export declare class Plugin {
   static install: PluginFunction<StorageOptions>;
+}
+
+export declare class Vue2Storage {
   readonly length: number;
   readonly prefix: string;
   setOptions (config: StorageOptions): void;

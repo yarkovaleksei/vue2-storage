@@ -9,7 +9,7 @@ const drivers = [
 ];
 
 drivers.forEach((driver) => {
-  describe(`${driver.name} Storage`, () => {
+  describe(`${driver.name} Storage [vue plugin]`, () => {
     let vm: Vue;
 
     beforeEach(() => {

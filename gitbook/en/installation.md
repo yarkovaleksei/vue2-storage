@@ -12,32 +12,46 @@ Include vue2-storage after Vue and use according to the documentation:
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue2-storage/dist/vue2-storage.js"></script>
 <script>
-  window.Vue.use(window.Vue2Storage)
+  window.Vue.use(window.Vue2StoragePlugin)
 </script>
 ```
 
 ### NPM
 
-    $ npm install vue2-storage
+```bash
+$ npm install vue2-storage
+```
+
+If you plan to [use the package without Vue](vanilla.md), then you need to add the flag `--no-optional`:
+```bash
+$ npm install --no-optional vue2-storage
+```
 
 ### Yarn
 
-    $ yarn add vue2-storage
+```bash
+$ yarn add vue2-storage
+```
+
+If you plan to [use the package without Vue](vanilla.md), then you need to add the flag `--ignore-optional`:
+```bash
+$ yarn add --ignore-optional vue2-storage
+```
 
 When used with a module system, you must explicitly install the `vue2-storage` via `Vue.use()`:
 
 ```javascript
-import Vue from 'vue'
-import {Vue2Storage} from 'vue2-storage'
+import Vue from 'vue';
+import { Plugin } from 'vue2-storage';
 
-Vue.use(Vue2Storage)
+Vue.use(Plugin);
 // You can pass options
-Vue.use(Vue2Storage, {
+Vue.use(Plugin, {
   prefix: 'app_',
   driver: 'local',
   ttl: 60 * 60 * 24 * 1000, // 24 hours
   replacer: (key, value) => value
-})
+});
 ```
 
 You don't need to do this when using global script tags.
@@ -47,7 +61,9 @@ You don't need to do this when using global script tags.
 You will have to clone directly from GitHub and build `vue2-storage` yourself if
 you want to use the latest dev build.
 
-    $ git clone https://github.com/yarkovaleksei/vue2-storage.git node_modules/vue2-storage
-    $ cd node_modules/vue2-storage
-    $ yarn
-    $ yarn build
+```bash
+$ git clone https://github.com/yarkovaleksei/vue2-storage.git node_modules/vue2-storage
+$ cd node_modules/vue2-storage
+$ yarn
+$ yarn build
+```
