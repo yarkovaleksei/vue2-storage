@@ -184,7 +184,7 @@ export default class Vue2Storage {
   }
 
   private addPrefix (key: string): string {
-    return `${this.options.prefix || ''}${key}`;
+    return `${this.options.prefix || ''}${this.removePrefix(key)}`;
   }
 
   private removePrefix (key: string): string {

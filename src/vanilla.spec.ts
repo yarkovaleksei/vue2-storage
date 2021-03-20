@@ -1,5 +1,5 @@
 import 'jest-localstorage-mock';
-import Vue2Storage from './storage';
+import Vue2Storage from '.';
 import { StorageDriver } from './types';
 import { sleep } from '../test/utils';
 
@@ -137,6 +137,16 @@ drivers.forEach((driver) => {
         const value = storage.key(0);
         const test = storage.get('test');
         expect(value).toEqual(test);
+        done();
+      });
+    });
+
+    describe('Get value by keys element', () => {
+      it('Get key', (done) => {
+        storage.set('key', 'value');
+        const keys = storage.keys();
+        const value = storage.get(keys[0]);
+        expect(value).toEqual('value');
         done();
       });
     });
