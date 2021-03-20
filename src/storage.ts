@@ -1,8 +1,24 @@
-import MemoryStorage from './MemoryStorage';
-import { SetterOptions, StorageDriver, StorageOptions } from './types';
-import { StorageError } from './storage-error';
+import { MemoryStorage } from './MemoryStorage';
+import { StorageError } from './StorageError';
 
 const availableDrivers = ['local', 'session', 'memory'];
+
+export interface SetterOptions {
+  ttl?: number
+}
+
+export enum StorageDriver {
+  LOCAL   = 'local',
+  SESSION = 'session',
+  MEMORY  = 'memory',
+}
+
+export interface StorageOptions {
+  prefix?: string
+  driver?: StorageDriver
+  ttl?: number
+  replacer?: (key: string, value: any) => any
+}
 
 export default class Vue2Storage {
   private options: StorageOptions;

@@ -22,20 +22,10 @@ https://unpkg.com/vue2-storage/dist/vue2-storage
 $ npm install vue2-storage
 ```
 
-Если планируете [использовать пакет без Vue](vanilla.md), то надо добавить флаг `--no-optional`:
-```bash
-$ npm install --no-optional vue2-storage
-```
-
 ### Yarn
 
 ```bash
 $ yarn add vue2-storage
-```
-
-Если планируете [использовать пакет без Vue](vanilla.md), то надо добавить флаг `--ignore-optional`:
-```bash
-$ yarn add --ignore-optional vue2-storage
 ```
 
 При использовании с модульной системой вы должны явно установить `vue2-storage` через` Vue.use()`:

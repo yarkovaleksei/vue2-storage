@@ -1,6 +1,6 @@
 import 'jest-localstorage-mock';
 import Vue2Storage from '.';
-import { StorageDriver } from './types';
+import { StorageDriver } from './storage';
 import { sleep } from '../test/utils';
 
 const drivers = [

@@ -3,7 +3,6 @@ import replace from 'rollup-plugin-replace';
 import { eslint } from 'rollup-plugin-eslint';
 import typescript from 'rollup-plugin-typescript';
 import commonjs from 'rollup-plugin-commonjs';
-import copy from 'rollup-plugin-copy';
 import uglify from 'rollup-plugin-uglify-es';
 
 const banner = require('./config/banner');
@@ -33,50 +32,39 @@ const plugins = [
   }),
   typescript(),
   commonjs(),
-  copy({
-    targets: {
-      'src/types.ts': `dist/${pack.name}.d.ts`,
-    },
-  }),
 ];
 
+function makeEntry(options) {
+  return {
+    input: 'src/index.ts',
+    plugins: options.plugins || plugins,
+    output: {
+      file: `dist/${pack.name}${options.extension}`,
+      format: options.format,
+      banner,
+      name: options.name || undefined,
+    },
+  };
+}
+
 export default [
-  {
-    input: 'src/index.ts',
-    plugins,
-    output: {
-      file: `dist/${pack.name}.common.js`,
-      format: 'cjs',
-      banner,
-    },
-  },
-  {
-    input: 'src/index.ts',
-    plugins,
-    output: {
-      file: `dist/${pack.name}.esm.js`,
-      format: 'es',
-      banner,
-    },
-  },
-  {
-    input: 'src/index.ts',
-    plugins: plugins.concat(uglify()),
-    output: {
-      file: `dist/${pack.name}.min.js`,
-      format: 'umd',
-      banner,
-      name: moduleName,
-    },
-  },
-  {
-    input: 'src/index.ts',
-    plugins,
-    output: {
-      file: `dist/${pack.name}.js`,
-      format: 'umd',
-      banner,
-      name: moduleName,
-    },
-  },
+  makeEntry({
+    extension: '.common.js',
+    format: 'cjs',
+  }),
+  makeEntry({
+    extension: '.esm.js',
+    format: 'es',
+  }),
+  makeEntry({
+    extension: '.min.js',
+    format: 'umd',
+    plugins: [...plugins, uglify()],
+    name: moduleName,
+  }),
+  makeEntry({
+    extension: '.js',
+    format: 'umd',
+    name: moduleName,
+  }),
 ];

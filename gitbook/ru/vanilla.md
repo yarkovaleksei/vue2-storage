@@ -6,6 +6,7 @@
 ### HTML
 
 ```html
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue2-storage/dist/vue2-storage.js"></script>
 
 <script>
@@ -38,7 +39,6 @@
 
 ```javascript
 // Если вы используете модульную систему, то импортируйте класс Vue2Storage
-import Vue from 'vue';
 import Vue2Storage from 'vue2-storage';
 
 // Вы можете указать конфигурацию хранилища при создании экземпляра класса

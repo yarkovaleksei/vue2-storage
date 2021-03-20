@@ -2,7 +2,7 @@
 *.log
 *.swp
 *.yml
-docs/_book
-config
 dist/*.map
+docs
+config
 test

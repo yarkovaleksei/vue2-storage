@@ -22,20 +22,10 @@ Include vue2-storage after Vue and use according to the documentation:
 $ npm install vue2-storage
 ```
 
-If you plan to [use the package without Vue](vanilla.md), then you need to add the flag `--no-optional`:
-```bash
-$ npm install --no-optional vue2-storage
-```
-
 ### Yarn
 
 ```bash
 $ yarn add vue2-storage
-```
-
-If you plan to [use the package without Vue](vanilla.md), then you need to add the flag `--ignore-optional`:
-```bash
-$ yarn add --ignore-optional vue2-storage
 ```
 
 When used with a module system, you must explicitly install the `vue2-storage` via `Vue.use()`:

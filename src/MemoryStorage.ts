@@ -1,6 +1,6 @@
 const storage: Record<string, any> = {};
 
-class MemoryStorage {
+class MemoryStorageClass {
   get length (): number {
     return Object.keys(this.storage).length;
   }
@@ -36,4 +36,4 @@ class MemoryStorage {
   }
 }
 
-export default new MemoryStorage();
+export const MemoryStorage = new MemoryStorageClass();

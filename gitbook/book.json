@@ -19,6 +19,6 @@
   },
   "variables": {
     "packageName": "vue2-storage",
-    "packageVersion": "6.0.3"
+    "packageVersion": "6.1.3"
   }
 }
