@@ -1,6 +1,7 @@
 import 'jest-localstorage-mock';
 import Vue2Storage from './storage';
 import { StorageDriver } from './types';
+import { sleep } from '../test/utils';
 
 const drivers = [
   {name: 'Local', value: StorageDriver.LOCAL},
@@ -87,10 +88,8 @@ drivers.forEach((driver) => {
     describe('Set item with TTL 3 seconds', () => {
       it('Set item', async (done) => {
         const data = { a: 1 };
-        storage.set('test', data, { ttl: 3000 });
-
-        await new Promise((resolve) => setTimeout(resolve, 4000));
-
+        storage.set('test', data, { ttl: 1000 });
+        await sleep(2);
         expect(storage.get('test')).toEqual(null);
         done();
       });
@@ -119,7 +118,15 @@ drivers.forEach((driver) => {
       it('Has key by name', (done) => {
         storage.set('test', 'test');
         const key = storage.has('test');
-        expect(typeof key === 'boolean' && key).toEqual(true);
+        expect(key).toEqual(true);
+        done();
+      });
+
+      it('Has key by name with considering logic', async (done) => {
+        storage.set('test', 'test', { ttl: 1000 });
+        await sleep(2);
+        const key = storage.has('test');
+        expect(key).toEqual(false);
         done();
       });
     });
@@ -142,14 +149,28 @@ drivers.forEach((driver) => {
         expect(Array.isArray(keys) && keys.length).toEqual(2);
         done();
       });
+
+      it('Get keys array considering ttl', async (done) => {
+        storage.set('test1', 'test1', { ttl: 1000 });
+        await sleep(2);
+        const keys = storage.keys();
+        expect(Array.isArray(keys) && keys.length).toEqual(0);
+        done();
+      });
     });
 
     describe('Get length', () => {
       it('Get keys length', (done) => {
         storage.set('test1', 'test1');
         storage.set('test2', 'test2');
-        const length = storage.length;
-        expect(length).toEqual(2);
+        expect(storage.length).toEqual(2);
+        done();
+      });
+
+      it('Get keys length with considering logic', async (done) => {
+        storage.set('test1', 'test1', { ttl: 1000 });
+        await sleep(2);
+        expect(storage.length).toEqual(0);
         done();
       });
     });

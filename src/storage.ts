@@ -53,6 +53,7 @@ export default class Vue2Storage {
   get (key: string, fallback: any = null) {
     try {
       const val = this.fromJSON(this.addPrefix(key));
+
       if (val === null) {
         return fallback;
       }
@@ -65,6 +66,7 @@ export default class Vue2Storage {
 
   pull (key: string, fallback: any = null) {
     const val = this.get(key, fallback);
+
     if (val !== fallback) {
       this.remove(key);
     }
@@ -82,6 +84,7 @@ export default class Vue2Storage {
 
   async remember (key: string, closure: () => Promise<any>, options: SetterOptions = {}) {
     let val = this.get(key, null);
+
     if (val !== null) {
       return val;
     }
@@ -118,6 +121,8 @@ export default class Vue2Storage {
   }
 
   has (key: string): boolean {
+    this.removeExpiredValuesByKeys([this.addPrefix(key)]);
+
     if (this.options.driver !== StorageDriver.MEMORY) {
       return (this.addPrefix(key) in this.driver);
     }
@@ -136,11 +141,20 @@ export default class Vue2Storage {
   }
 
   keys (): string[] {
-    if (this.options.driver !== StorageDriver.MEMORY) {
-      return Object.keys(this.driver);
+    let keys: string[] = [];
+
+    switch(this.options.driver) {
+    case StorageDriver.MEMORY:
+      keys = Object.keys(this.driver.storage);
+      break;
+    default:
+      keys = Object.keys(this.driver);
+      break;
     }
 
-    return Object.keys(this.driver.storage);
+    return keys.filter(key => {
+      return this.fromJSON(key) !== null;
+    });
   }
 
   private checkConfig (config: StorageOptions): void {
@@ -197,18 +211,11 @@ export default class Vue2Storage {
 
   private fromJSON (key: string): any {
     try {
-      const data: Record<string, any> = JSON.parse(this.driver.getItem(key));
+      this.removeExpiredValuesByKeys([key]);
+
+      const data: Record<string, any> | null = JSON.parse(this.driver.getItem(key));
 
       if (data !== null) {
-        if (('ttl' in data)
-            && Number(data.ttl) > 0
-            && Number(data.ttl) < Date.now()
-        ) {
-          this.remove(this.removePrefix(key));
-
-          return null;
-        }
-
         if ('value' in data) {
           return data.value;
         }
@@ -217,6 +224,27 @@ export default class Vue2Storage {
       }
 
       return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  private removeExpiredValuesByKeys (keys: string[]): void {
+    try {
+      keys.forEach(key => {
+        const data: Record<string, any> | null = JSON.parse(this.driver.getItem(key));
+
+        if (data === null) {
+          return;
+        }
+
+        if (('ttl' in data)
+        && Number(data.ttl) > 0
+        && Number(data.ttl) < Date.now()
+        ) {
+          this.remove(this.removePrefix(key));
+        }
+      });
     } catch (e) {
       return null;
     }
