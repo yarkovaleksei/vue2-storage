@@ -1,5 +1,7 @@
 lib
 dist/*.gz
+dist/*.js
+dist/*.ts
 docs/_book
 node_modules
 .DS_Store
