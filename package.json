@@ -25,6 +25,7 @@
     "url": "https://github.com/yarkovaleksei/vue2-storage/issues"
   },
   "scripts": {
+    "prepublish": "check-node-version --npm \">= 8.*\" || yarn build",
     "build": "cross-env NODE_ENV=production rollup -c rollup.config.ts",
     "start": "cross-env NODE_ENV=development rollup -c rollup.config.ts --watch",
     "docs:version": "node config/version.js",
@@ -35,7 +36,7 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "test": "jest",
     "test:watch": "jest --watch",
-    "clean": "rimraf dist/*.js* ./*.log"
+    "clean": "rimraf dist/*.js* dist/*.ts ./*.log"
   },
   "files": [
     "dist/*.js",
@@ -50,6 +51,7 @@
     "@types/jest": "^24.0.12",
     "@typescript-eslint/eslint-plugin": "4.15.1",
     "@typescript-eslint/parser": "4.15.1",
+    "check-node-version": "^4.1.0",
     "cross-env": "^5.2.0",
     "eslint": "7.20.0",
     "gitbook-cli": "^2.3.2",
