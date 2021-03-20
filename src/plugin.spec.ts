@@ -139,6 +139,16 @@ drivers.forEach((driver) => {
         expect(value).toEqual(test);
         done();
       });
+
+      describe('Get value by keys element', () => {
+        it('Get key', (done) => {
+          vm.$storage.set('key', 'value');
+          const keys = vm.$storage.keys();
+          const value = vm.$storage.get(keys[0]);
+          expect(value).toEqual('value');
+          done();
+        });
+      });
     });
 
     describe('Get keys', () => {
