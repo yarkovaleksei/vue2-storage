@@ -190,9 +190,7 @@ drivers.forEach((driver) => {
 
     describe('Remember items', () => {
       it('Retrieve from callable and set item', async (done) => {
-        const returned = await vm.$storage.remember('test', async () => {
-          return 'success';
-        });
+        const returned = await vm.$storage.remember<string>('test', async () => 'success');
         expect(vm.$storage.get('test')).toEqual('success');
         expect(returned).toEqual('success');
         done();

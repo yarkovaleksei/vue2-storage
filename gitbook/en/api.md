@@ -123,9 +123,24 @@ Arguments:
 Example:
 
 ```javascript
+// JavaScript
 export default {
   async created () {
     const data = await this.$storage.remember('test', async () => {
+        // Do HTTP calls or other async stuff
+        return 'value'
+    })
+    console.log(data) // outputs "value"
+  }
+}
+```
+
+```typescript
+// TypeScript
+export default {
+  async created () {
+    // You can specify the type of expected data
+    const data = await this.$storage.remember<string>('test', async () => {
         // Do HTTP calls or other async stuff
         return 'value'
     })

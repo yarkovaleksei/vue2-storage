@@ -28,7 +28,7 @@ export declare class Vue2Storage {
   get (key: string, fallback?: any): any;
   pull (key: string, fallback?: any): any;
   set (key: string, data: any, options?: SetterOptions): void;
-  remember (key: string, closure: () => Promise<any>, options?: SetterOptions): void;
+  remember <T = any>(key: string, closure: () => Promise<T>, options?: SetterOptions): Promise<T>;
   remove (key: string): void;
   clear (force?: boolean): void;
   has (key: string): boolean;

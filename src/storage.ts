@@ -82,7 +82,7 @@ export default class Vue2Storage {
     }
   }
 
-  async remember (key: string, closure: () => Promise<any>, options: SetterOptions = {}) {
+  async remember <T = any>(key: string, closure: () => Promise<T>, options: SetterOptions = {}): Promise<T> {
     let val = this.get(key, null);
 
     if (val !== null) {
