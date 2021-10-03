@@ -16,10 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Node.js v13
+      - name: Setup Node.js v14
         uses: actions/setup-node@v2
         with:
-          node-version: '13.x'
+          node-version: '14.x'
 
       - name: Install dependencies
         uses: borales/actions-yarn@v2.0.2
@@ -40,13 +40,3 @@ jobs:
         uses: borales/actions-yarn@v2.0.2
         with:
           cmd: build
-
-      - name: Install gitbook dependencies
-        uses: borales/actions-yarn@v2.0.2
-        with:
-          cmd: docs:install
-
-      - name: Build docs
-        uses: borales/actions-yarn@v2.0.2
-        with:
-          cmd: docs:build

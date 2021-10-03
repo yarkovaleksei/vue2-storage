@@ -1,0 +1,5 @@
+- [Установка](installation.md)
+- [Использование без Vue](vanilla.md)
+- [Начало использования](started.md)
+- [Настройки](options.md)
+- [API](api.md)
