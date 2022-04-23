@@ -1,0 +1,5 @@
+- [Installation](en/installation.md)
+- [Using without Vue](en/vanilla.md)
+- [Getting Started](en/started.md)
+- [Options](en/options.md)
+- [API](en/api.md)

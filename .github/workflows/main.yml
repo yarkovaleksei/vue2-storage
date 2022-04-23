@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js v14
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: install
+
+      - name: Code lint
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: lint
+
+      - name: Unit tests
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: test
+
+      - name: Build project
+        uses: borales/actions-yarn@v2.0.2
+        with:
+          cmd: build
